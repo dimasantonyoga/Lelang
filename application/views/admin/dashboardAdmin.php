@@ -204,15 +204,22 @@
                       y: dataChart[0],
                       color:'orange'
 
-                  }, {
-                      name: 'Opened',
+                  },
+                  {
+                      name: 'Coming Soon',
                       y: dataChart[1],
+                      color:'green'
+
+                  },
+                   {
+                      name: 'Opened',
+                      y: dataChart[2],
                       sliced: true,
                       selected: true,
                       color:'blue'
                   }, {
                       name: 'Closed Down',
-                      y: dataChart[2],
+                      y: dataChart[3],
                       color:'red'
                   }]
               }]
@@ -227,8 +234,9 @@
                   data: "",
                   dataType: "JSON",
                   success: function (response) {
-                    let dataChart = [response.ChartDraf,response.ChartOpen,response.ChartClosed];
-
+                    let dataChart = [response.ChartDraf,response.ChartComing,response.ChartOpen,response.ChartClosed];
+                    
+                    // Chart                    
                     chart(dataChart);
                     let html="";
                     $('#user').html(response.user);
@@ -239,8 +247,6 @@
                     $('#user').addClass('countAnim');
                     $('#officer').addClass('countAnim');
                     $('#product').addClass('countAnim');
-                    animasiCount();
-                    // Chart
 
                     for(let i = 0; i < response.activity.length; i++){
                       let button="";
@@ -302,7 +308,7 @@
             // GET DATA ACTIVITY
             $.ajax({
                 type: "GET",
-                url: "<?= base_url('admin/UserControllerAdmin/checkActivity') ?>",
+                url: "<?= base_url('admin/DashboardControllerAdmin/checkActivity') ?>",
                 data: "",
                 dataType: "JSON",
                 success: function (response) {
@@ -320,7 +326,7 @@
           function checkActivity(){
               $.ajax({
                   type: "GET",
-                  url: "<?= base_url('admin/UserControllerAdmin/checkActivity') ?>",
+                  url: "<?= base_url('admin/DashboardControllerAdmin/checkActivity') ?>",
                   data: "",
                   dataType: "JSON",
                   success: function (response) {

@@ -113,6 +113,11 @@ class myModel extends CI_Model {
         return $this->db->get();
     }
 
+    // MANUAL QUERY 
+    public function query($query){
+        return $this->db->query($query);
+    }
+
 
 }
 

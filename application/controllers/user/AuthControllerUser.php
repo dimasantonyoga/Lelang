@@ -45,9 +45,7 @@ class AuthControllerUser extends CI_Controller {
             'nama_lengkap' => $this->input->post('registerName'),
             'username'   => $this->input->post('registerUsername'),
             'password'   => md5($this->input->post('registerPassword')),
-            'telp'   => $this->input->post('registerTelephone'),
-            'create_at'   => date('Y-m-d H:i:s'),
-            'update_at' => '0000-00-00 00:00:00',
+            'telp'   => $this->input->post('registerTelephone')
         );
         $insert = $this->myModel->insert('tb_masyarakat',$data);
 

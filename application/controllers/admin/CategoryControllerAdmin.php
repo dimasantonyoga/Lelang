@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class UserControllerAdmin extends CI_Controller {
+class CategoryControllerAdmin extends CI_Controller {
 
     public function __construct()
     {
@@ -17,15 +17,15 @@ class UserControllerAdmin extends CI_Controller {
 
     public function index()
     {
-        $data['page'] = "User";
+        $data['page'] = "Category";
         $data['page_level'] = 1;
-        $this->load->view('admin/userAdmin',$data);
+        $this->load->view('admin/categoryAdmin',$data);
     }
 
     // READ
     public function getData(){
-        $data['real'] = $this->myModel->selectOrder('tb_masyarakat','create_at','DESC')->result();
-        $data['count'] = $this->myModel->selectOrder('tb_masyarakat','create_at','DESC')->num_rows();
+        $data['real'] = $this->myModel->selectOrder('tb_kategori','create_at','DESC')->result();
+        $data['count'] = $this->myModel->selectOrder('tb_kategori','create_at','DESC')->num_rows();
         echo json_encode($data);
     }
 
@@ -38,9 +38,9 @@ class UserControllerAdmin extends CI_Controller {
     // get data where
     public function getDataWhere(){
         $where = array(
-            'id_user' => $this->input->post('id'),
+            'id_kategori' => $this->input->post('id'),
         );
-        $data = $this->myModel->selectWhere('tb_masyarakat',$where)->row();
+        $data = $this->myModel->selectWhere('tb_kategori',$where)->row();
         echo json_encode($data);
 
     }
@@ -49,12 +49,11 @@ class UserControllerAdmin extends CI_Controller {
     public function create(){
         // INSERT TABLE
         $data = array(
-            'nama_lengkap' => $this->input->post('registerName'),
-            'username'   => $this->input->post('registerUsername'),
-            'password'   => md5($this->input->post('registerPassword')),
-            'telp'   => $this->input->post('registerTelephone')
+            'nama_kategori' => $this->input->post('name'),
+            'ongkir' => $this->input->post('ongkir'),
+
         );
-        $insert = $this->myModel->insert('tb_masyarakat',$data);
+        $insert = $this->myModel->insert('tb_kategori',$data);
 
         $data = array('success' => false, 'msg' => '');
         if($insert){
@@ -62,7 +61,7 @@ class UserControllerAdmin extends CI_Controller {
             $keterangan = array(
                 'id_petugas' => $this->session->userdata('id_petugas'),
                 'nama_aktifitas'  => 'CREATE',
-                'nama_tabel'  => 'tb_masyarakat'
+                'nama_tabel'  => 'tb_kategori',
             );
             $this->myModel->insert('tb_aktifitas',$keterangan);
             $data = array('success' => true, 'msg' => '');
@@ -73,13 +72,13 @@ class UserControllerAdmin extends CI_Controller {
     // delete
     public function delete(){
         $id = $this->input->post('id');
-        $this->db->where('id_user', $id);
-        $this->db->delete('tb_masyarakat');
+        $this->db->where('id_kategori', $id);
+        $this->db->delete('tb_kategori');
         // INSERT TABLE AktifitAS
         $keterangan = array(
             'id_petugas' => $this->session->userdata('id_petugas'),
             'nama_aktifitas'  => 'DELETE',
-            'nama_tabel'  => 'tb_masyarakat'
+            'nama_tabel'  => 'tb_kategori'
         );
         $this->myModel->insert('tb_aktifitas',$keterangan);
         echo json_encode($id);
@@ -88,21 +87,18 @@ class UserControllerAdmin extends CI_Controller {
     // update
     public function update(){
         $data = array(
-            'nama_lengkap' => $this->input->post('registerName'),
-            'username'   => $this->input->post('registerUsername'),
-            'password'   => md5($this->input->post('registerPassword')),
-            'telp'   => $this->input->post('registerTelephone'),
-            'update_at' => date('Y-m-d H:i:s'),
+            'nama_kategori' => $this->input->post('nama'),
+            'ongkir'   => $this->input->post('ongkir'),
         );
         $id = $this->input->post('id');
-        $this->db->where('id_user', $id);
-        $up = $this->myModel->update('tb_masyarakat',$data);
+        $this->db->where('id_kategori', $id);
+        $up = $this->myModel->update('tb_kategori',$data);
 
         // INSERT TABLE AktifitAS
         $keterangan = array(
             'id_petugas' => $this->session->userdata('id_petugas'),
             'nama_aktifitas'  => 'UPDATE',
-            'nama_tabel'  => 'tb_masyarakat'
+            'nama_tabel'  => 'tb_kategori'
         );
         $this->myModel->insert('tb_aktifitas',$keterangan);
 
@@ -114,4 +110,4 @@ class UserControllerAdmin extends CI_Controller {
     }
 }
 
-/* End of file UserControllerAdmin.php */
+/* End of file CategoryControllerAdmin.php */

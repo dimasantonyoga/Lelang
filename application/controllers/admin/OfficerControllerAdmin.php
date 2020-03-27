@@ -8,7 +8,7 @@ class OfficerControllerAdmin extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('myModel');
-        if( $this->session->userdata('login_petugas') != TRUE ){
+        if( $this->session->userdata('login_petugas') != TRUE || $this->session->userdata('id_level')  != '1'){
             redirect(base_url());
         }
         date_default_timezone_set('Asia/Jakarta');
@@ -53,9 +53,7 @@ class OfficerControllerAdmin extends CI_Controller {
             'nama_petugas' => $this->input->post('registerName'),
             'username'   => $this->input->post('registerUsername'),
             'password'   => md5($this->input->post('registerPassword')),
-            'id_level'   => '2',
-            'create_at'   => date('Y-m-d H:i:s'),
-            'update_at' => '0000-00-00 00:00:00',
+            'id_level'   => '2'
         );
         $insert = $this->myModel->insert('tb_petugas',$data);
 
@@ -66,7 +64,6 @@ class OfficerControllerAdmin extends CI_Controller {
                 'id_petugas' => $this->session->userdata('id_petugas'),
                 'nama_aktifitas'  => 'CREATE',
                 'nama_tabel'  => 'tb_petugas',
-                'create_at'  => date('Y-m-d H:i:s'),
             );
             $this->myModel->insert('tb_aktifitas',$keterangan);
             $data = array('success' => true, 'msg' => '');
@@ -84,7 +81,6 @@ class OfficerControllerAdmin extends CI_Controller {
             'id_petugas' => $this->session->userdata('id_petugas'),
             'nama_aktifitas'  => 'DELETE',
             'nama_tabel'  => 'tb_petugas',
-            'create_at'  => date('Y-m-d H:i:s'),
         );
         $this->myModel->insert('tb_aktifitas',$keterangan);
         echo json_encode($id);
@@ -107,8 +103,7 @@ class OfficerControllerAdmin extends CI_Controller {
         $keterangan = array(
             'id_petugas' => $this->session->userdata('id_petugas'),
             'nama_aktifitas'  => 'UPDATE',
-            'nama_tabel'  => 'tb_petugas',
-            'create_at'  => date('Y-m-d H:i:s'),
+            'nama_tabel'  => 'tb_petugas'
         );
         $this->myModel->insert('tb_aktifitas',$keterangan);
 

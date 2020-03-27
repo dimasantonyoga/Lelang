@@ -3,6 +3,9 @@
     <!-- ===== END MODAL ===== -->
 
 
+    
+
+
     <!-- ===== LOAD EXTERNAL JS ===== -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -14,10 +17,30 @@
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="<?= base_url('assets/js/anime.min.js') ?>"></script>
     <!-- ===== END EXTERNAL JS ===== -->
 
     <script>
+    // Select 2
+    $(document).ready(function() {
+      $(function () {
+        $('select').each(function () {
+          $(this).select2({
+            theme: 'bootstrap4',
+            width: 'style',
+            placeholder: $(this).attr('placeholder'),
+            allowClear: Boolean($(this).data('allow-clear')),
+          });
+        });
+      });
+      $('select').select2({
+        theme: 'bootstrap4',
+        // dropdownParent: $('.modal')
+      });
+      $("select").select2({ dropdownParent: ".modal" });
+      
+    });
     // SETTING SIDEBAR
     $("#sidebar-button").hide();
     $(".sidebar-dropdown > a").click(function() {
@@ -61,7 +84,7 @@
       const Toast = Swal.mixin({
         toast: false,
         position: 'center-center',
-        showConfirmButton: true,
+        showConfirmButton: true, 
         timer: 1500,
         timerProgressBar: false,
         onOpen: (toast) => {
@@ -82,6 +105,59 @@
         let registerussadd ="";
         
     }
+
+    // Logout
+    $("#logout").click(function (e) { 
+      e.preventDefault();
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Want to logout !",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Logout'
+      }).then((result) => {
+        if (result.value) {
+          var x = setInterval(function() {
+            location.reload();
+          },1500);
+          Swal.fire(
+            'Success',
+            'Your has been logout.',
+            'success'
+          )
+          $.ajax({
+            type: "POST",
+            url: "<?= base_url('admin/DashboardControllerAdmin/logout') ?>",
+            data: "data",
+            dataType: "JSON",
+            success: function (response) {
+              
+            }
+          });
+        }
+      })
+
+    });
+
+    // Rupiah Function
+    function formatRupiah(angka, prefix){
+			var number_string = angka.replace(/[^,\d]/g, '').toString(),
+			split   		= number_string.split(','),
+			sisa     		= split[0].length % 3,
+			rupiah     		= split[0].substr(0, sisa),
+			ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+ 
+			// tambahkan titik jika yang di input sudah menjadi angka ribuan
+			if(ribuan){
+				separator = sisa ? '.' : '';
+				rupiah += separator + ribuan.join('.');
+			}
+ 
+			rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+			return prefix == undefined ? rupiah : (rupiah ? prefix + rupiah : '');
+		}
 
     // Count Animation
     function animasiCount(){

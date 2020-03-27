@@ -61,7 +61,8 @@ $route['admin/login'] = 'admin/AuthControllerAdmin';
 $route['admin/dashboard'] = 'admin/DashboardControllerAdmin';
 $route['admin/user'] = 'admin/UserControllerAdmin';
 $route['admin/officer'] = 'admin/OfficerControllerAdmin';
-$route['admin/product/all'] = 'admin/ProductControllerAdmin';
+$route['admin/category'] = 'admin/CategoryControllerAdmin';
+$route['admin/product'] = 'admin/ProductControllerAdmin';
 
 
 

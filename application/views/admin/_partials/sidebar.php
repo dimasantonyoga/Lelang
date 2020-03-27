@@ -9,7 +9,7 @@
       <!-- BUTTON CLOSE -->
       <!-- END BUTTON CLOSE -->
       <a class="navbar-brand mr-auto" href="#">Rival Price</a>
-      <button class="ml-auto btn btn-outline-light my-2 my-sm-0">Logout</button>
+      <button id="logout" class="ml-auto btn btn-outline-light my-2 my-sm-0">Logout</button>
     </nav>
     <!-- ===== End Navbar ====== -->
 
@@ -79,6 +79,9 @@
               <span>Dashboard</span>
             </a>
           </li>
+          <?php
+          if($this->session->userdata('id_level') == 1){
+          ?>
           <li class="sidebar">
             <a href="<?= base_url('admin/user') ?>">
               <i class="fa fa-users"></i>
@@ -91,8 +94,17 @@
               <span>Officer</span>
             </a>
           </li>
+          <?php
+          }
+          ?>
           <li class="sidebar">
-            <a href="<?= base_url('admin/product/all') ?>">
+            <a href="<?= base_url('admin/category') ?>">
+              <i class="fa fa-list-alt"></i>
+              <span>Category</span>
+            </a>
+          </li>
+          <li class="sidebar">
+            <a href="<?= base_url('admin/product') ?>">
               <i class="fa fa-archive"></i>
               <span>Product</span>
             </a>
