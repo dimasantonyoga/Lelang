@@ -143,9 +143,9 @@
                     let ongkir = "";
                     for (let i = 0; i < response.real.length; i++) {
                         if(response.real[i].ongkir == 0){
-                            ongkir = "<span class='w-25 text-white btn btn-sm btn-danger'>No</span>";
+                            ongkir = "<span class='text-white btn btn-sm btn-danger'>No</span>";
                         }else{
-                            ongkir = "<span class='w-25 text-white btn btn-sm btn-success'>Yes</span>";
+                            ongkir = "<span class='text-white btn btn-sm btn-success'>Yes</span>";
                         }
                         html+=  "<tr>"+
                                     "<td>"+(i+1)+"</td>"+

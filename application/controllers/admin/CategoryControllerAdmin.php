@@ -7,7 +7,7 @@ class CategoryControllerAdmin extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('myModel');
-        if( $this->session->userdata('login_petugas') != TRUE || $this->session->userdata('id_level') != 1 ){
+        if( $this->session->userdata('login_petugas') != TRUE ){
             redirect(base_url());
         }
         date_default_timezone_set('Asia/Jakarta');

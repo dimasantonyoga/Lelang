@@ -471,7 +471,7 @@
                         <input type="file" name="file" class="d-none" id="addImage">
                         <input type="hidden" class="d-none" id="cek_gambarAddProduk">
                         <div class="col-lg-7 col-md-12 col-sm-12 d-flex align-items-center">
-                            <div id="produkCarousel" class="carousel slide" data-ride="carousel">
+                            <div id="produkCarousel" class="carousel slide w-100" data-ride="carousel">
                                 <div class="carousel-inner" role="listbox">
                                     <div class="carousel-item active">
                                         <div class="row mt-3">
@@ -534,7 +534,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="carousel-item">
+                                    <div class="carousel-item w-100">
                                     <div class="row mt-3">
                                             <div class="col-sm-12 col-md-12 col-lg-12" id="weightAdd">
                                                 <!-- ===== FORM Weight ===== -->
@@ -620,10 +620,21 @@
                             <div class="carousel-inner" role="listbox">
                                 <div class="carousel-item active">
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 mt-3" id="productDetailProductName"></div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12" id="productDetailProductName"></div>
                                         <div class="col-sm-12 col-md-12 col-lg-7 mt-3"  id="productDetailDescription"></div>
                                         <div id="detailKonten" class="col-sm-12 col-md-12 col-lg-5 mt-3">
                                             
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12" id="productDetailAlamat">
+                                            <div class="mt-3 collapse col-sm-12 col-md-12 col-lg-12" id="Detail2">
+                                                <p style="font-size:14px" id="locationDetail"></p>
+                                                <div class="card card-body" id="alamatDetail">
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="text-center mt-3 col-sm-12 col-md-12 col-lg-12" data-toggle="collapse" data-target="#Detail2" aria-expanded="true" aria-controls="Detail2">
+                                                <i id="detailArrow" class="arrow vert-move fa fa-chevron-down fa-lg"></i>
+                                            </div>
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 mt-3 text-center" id="productDetailDate" >
                                         

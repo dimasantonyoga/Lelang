@@ -35,7 +35,7 @@
                         <div class="col-sm-12 col-md-6 col-lg-2">
                             <div class="dataTables_length" id="table_length">
                                 <label class="w-100">
-                                    Sort by status 
+                                    Group by status 
                                     <select name="table_length" aria-controls="table" class="custom-select custom-select-sm form-control form-control-sm">
                                         <option value="10">All</option>
                                         <option value="25">Opened</option>
@@ -200,33 +200,8 @@
         // ========== START CREATE FUNCTION ============ //
         // ============================================= //
         let weight = "OFF";
-        // Setup Form Add (Category,Provinsi,city,Weight)
+        // Setup Form Add (city,Weight)
         let html ="";
-        // Category & Provinsi
-        $.ajax({
-            type: "GET",
-            url: "<?= base_url('admin/ProductControllerAdmin/getDataForm') ?>",
-            data: "",
-            dataType: "JSON",
-            success: function (response) {
-                // Category
-                html ="<option></option>";
-                for(let i = 0 ; i < response.category.length; i++){
-                    if(response.category[i].ongkir == 0){
-                        html += "<option value='"+response.category[i].id_kategori+"'>"+response.category[i].nama_kategori+" ( No shipping cost )</option>";
-                    }else{
-                        html += "<option value='"+response.category[i].id_kategori+"'>"+response.category[i].nama_kategori+" ( With shipping costs )</option>";
-                    }
-                }
-                $("#productAddCategory").html(html);
-                // Provinsi
-                html ="<option></option>";
-                for(let i = 0 ; i < response.provinsi.length; i++){
-                    html += "<option value='"+response.provinsi[i].id_provinsi+"'>"+response.provinsi[i].nama_provinsi+"</option>";
-                }
-                $("#productAddProvinsi").html(html);
-            }
-        });
         // City
         $("#productAddProvinsi").change(function (e) { 
             e.preventDefault();
@@ -242,7 +217,7 @@
                     // City
                     html ="<option></option>";
                     for(let i = 0 ; i < response.length; i++){
-                        html += "<option value='"+response[i].id_kota+"'>"+response[i].nama_kota+"</option>";
+                        html += "<option value='"+response[i].id_kota+"'> "+response[i].type+" "+response[i].nama_kota+"</option>";
                     }
                     $("#productAddCity").html(html);
                 }
@@ -495,6 +470,33 @@
             }
         } 
         function getData(){
+            // GET DATA FORM
+            let html ="";
+            // Category & Provinsi
+            $.ajax({
+                type: "GET",
+                url: "<?= base_url('admin/ProductControllerAdmin/getDataForm') ?>",
+                data: "",
+                dataType: "JSON",
+                success: function (response) {
+                    // Category
+                    html ="<option></option>";
+                    for(let i = 0 ; i < response.category.length; i++){
+                        if(response.category[i].ongkir == 0){
+                            html += "<option value='"+response.category[i].id_kategori+"'>"+response.category[i].nama_kategori+" ( No shipping cost )</option>";
+                        }else{
+                            html += "<option value='"+response.category[i].id_kategori+"'>"+response.category[i].nama_kategori+" ( With shipping costs )</option>";
+                        }
+                    }
+                    $("#productAddCategory").html(html);
+                    // Provinsi
+                    html ="<option></option>";
+                    for(let i = 0 ; i < response.provinsi.length; i++){
+                        html += "<option value='"+response.provinsi[i].id_provinsi+"'>"+response.provinsi[i].nama_provinsi+"</option>";
+                    }
+                    $("#productAddProvinsi").html(html);
+                }
+            });
         //     // GET DATA
             $.ajax({
                 type: "GET",
@@ -525,8 +527,8 @@
                         arrStatus.push(status);
                         arrP.push(p); 
                         // Template Nama
-                        if(response[i].nama_barang.length >= 16){
-                            templateNama = response[i].nama_barang.substring(0, 16)+". . .";
+                        if(response[i].nama_barang.length >= 15){
+                            templateNama = response[i].nama_barang.substring(0, 15)+". . .";
                         }else{
                             templateNama = response[i].nama_barang;
                         }
@@ -558,7 +560,7 @@
                                                 "<td class='px-2'> : "+formatRupiah(response[i].harga_awal,'Rp. ')+"</td>"+
                                             "</tr>";
                             templateBidder =    "<tr>"+
-                                                    "<td>Bidder </td>"+
+                                                    "<td>Bid </td>"+
                                                     "<td class='px-2'> : 0 </td>"+
                                                 "</tr>";
                             templateTime = "<tr>"+
@@ -576,7 +578,7 @@
                                                 "<td class='px-2'> : "+formatRupiah(response[i].harga_akhir,'Rp. ')+"</td>"+
                                             "</tr>";
                             templateBidder =    "<tr>"+
-                                                    "<td>Bidder </td>"+
+                                                    "<td>Bid </td>"+
                                                     "<td class='px-2'> : 0 </td>"+
                                                 "</tr>";
                             templateTime = "<tr>"+
@@ -609,6 +611,10 @@
                                             "<td class='px-2'> : "+templateNama+"</td>"+
                                         "</tr>"+
                                         templatePrice+
+                                        "<tr>"+
+                                            "<td>Category </td>"+
+                                            "<td class='px-2'> : "+response[i].nama_kategori+" </td>"+
+                                        "</tr>"+
                                         templateBidder+
                                         templateTime+
                                         "<tr>"+
@@ -647,6 +653,20 @@
         }
 
         // Detail Function
+        let icon = "arrowDown";
+        $("#detailArrow").click(function (e) { 
+            e.preventDefault();
+            if(icon == "arrowDown"){
+                $("#detailArrow").removeClass("fa-chevron-down");
+                $("#detailArrow").addClass("fa-chevron-up");
+                icon = "arrowUp";
+            }else{
+                $("#detailArrow").removeClass("fa-chevron-up");
+                $("#detailArrow").addClass("fa-chevron-down");
+                icon = "arrowDown";
+            }
+            
+        });
         function detailFunction(id){
             $("#productDetailDate").html("");
             detailClick = true;
@@ -665,25 +685,28 @@
 
 
                     $('#productDetailProductImage').attr("src",image);
-                    $('#productDetailProductName').html("<h6>"+response.nama_barang+"</h6>");
-                    $('#productDetailDescription').html("<p style='font-size:16px'>Description : </p>"+"<textarea id='textarea' disabled class='w-100 bg-white' style='overflow:hidden;border:none;resize: none;height:20px;'>"+response.deskripsi_barang+"</textarea class='form-control' style='overflow:visible'>");
-
-
+                    $('#productDetailProductName').html("<h6>"+response.nama_barang+" <span class='text-secondary'> ( "+response.nama_kategori+" )</span></h6>");
+                    $('#productDetailDescription').html("<p style='font-size:14px'>Description : </p>"+"<textarea id='textarea' disabled class='w-100 bg-white' style='overflow:hidden;border:none;resize: none;height:20px;'>"+response.deskripsi_barang+"</textarea class='form-control' style='overflow:visible'>");
+                    let templateWeight = "";
+                    $("#locationDetail").html("Location : "+response.type+" "+response.nama_kota);
+                    $("#alamatDetail").html(response.alamat);
+                    if(response.weight != 0){
+                        templateWeight = "<p style='font-size:14px' class='mb-1'>Weight : "+response.weight+" Gram</p>"
+                    }
                     // Template Status
-                    // <div id="productDetailInitialPrice"></div>
-                    // <div id="productDetailBidder"></div>
-                    // <div id="productDetailStatus"></div>
                     if(response.status=="draf"){
-                        html =  "<div id='productDetailInitialPrice'></div>"+
-                                "<div id='productDetailStatus'><span class=' ml-x bg-warning py-1 px-2  text-white rounded' style='font-size:10px'>Draf</span></div>";
+                        html =  templateWeight+
+                                "<div id='productDetailInitialPrice'></div>"+
+                                "<div id='productDetailStatus'><span class=' bg-warning py-1 px-2  text-white rounded' style='font-size:10px'>Draf</span></div>";
                         $("#detailKonten").html(html);
                         $("#productDetailDate").html();                   
                     }
                     if(response.status=="coming_soon"){
                         let id ="#idProdukComing"+response.id_barang;
                         let tanggal = response.tgl_dibuka;
-                        html =  "<div id='productDetailInitialPrice'></div>"+
-                                "<div id='productDetailStatus'><span class=' ml-x bg-success py-1 px-2  text-white rounded' style='font-size:10px'>Coming soon</span></div>";
+                        html =  templateWeight+
+                        "<div id='productDetailInitialPrice'></div>"+
+                                "<div id='productDetailStatus'><span class='bg-success py-1 px-2  text-white rounded' style='font-size:10px'>Coming soon</span></div>";
                         $("#detailKonten").html(html);
                         $("#productDetailDate").html("<h6 style='font-size:16px' class='ml-1' id='idProdukComing"+response.id_barang+"'></h6>");
 
@@ -717,9 +740,10 @@
                     if(response.status=="dibuka"){
                         let id ="#idProdukOpen"+response.id_barang;
                         let tanggal = response.tgl_ditutup;
-                        html = "<div id='productDetailInitialPrice'></div>"+
-                        "<p style='font-size:16px' class='ml-1'>Bidder : 0 </p>"+
-                        "<div id='productDetailStatus'><span class=' ml-x bg-info py-1 px-2  text-white rounded' style='font-size:10px'>Active</span> <button data-target='#slideDetail' data-slide-to='1' class='ml-x bg-primary py-1 px-2  text-white rounded' style='font-size:10px'>Check Bidder</button></div>";
+                        html = templateWeight+
+                        "<div id='productDetailInitialPrice'></div>"+
+                        "<p style='font-size:14px' class=''>Bid : 0 </p>"+
+                        "<div id='productDetailStatus'><span class=' bg-info py-1 px-2  text-white rounded' style='font-size:10px'>Active</span> <button data-target='#slideDetail' data-slide-to='1' class=' btn btn-sm bg-primary py-1 px-2  text-white rounded' style='font-size:10px'>Check Bidder</button></div>";
                         $("#detailKonten").html(html);
                         $("#productDetailDate").html("<h6 style='font-size:16px' class='ml-1' id='idProdukOpen"+response.id_barang+"'></h6>");
 
@@ -751,13 +775,14 @@
                         },1000);
                     }
                     if(response.status=="ditutup"){
-                        html = "<div id='productDetailInitialPrice'></div>"+
-                        "<p style='font-size:16px' class='ml-1'>Bidder : 0 </p>"+
-                        "<div id='productDetailStatus'><span class=' ml-x bg-danger py-1 px-2  text-white rounded' style='font-size:10px'>Closed</span> <button data-target='#slideDetail' data-slide-to='1' class='ml-x bg-primary py-1 px-2  text-white rounded' style='border:none;font-size:10px'>Check Bidder</button></div>";
+                        html = templateWeight+
+                        "<div id='productDetailInitialPrice'></div>"+
+                        "<p style='font-size:14px' class=''>Bid : 0 </p>"+
+                        "<div id='productDetailStatus'><span class=' bg-danger py-1 px-2  text-white rounded' style='font-size:10px'>Closed</span> <button data-target='#slideDetail' data-slide-to='1' class=' bg-primary py-1 px-2  text-white rounded' style='border:none;font-size:10px'>Check Bidder</button></div>";
                         $("#detailKonten").html(html);
                         $("#productDetailDate").html("<h6 style='font-size:16px' class='ml-1'> Closed at : "+response.tgl_ditutup+" </h6>");
                     }
-                    $('#productDetailInitialPrice').html("<p style='font-size:16px' class='ml-1'>Initial Price : "+formatRupiah(response.harga_awal,'Rp. ')+"</p>");                    
+                    $('#productDetailInitialPrice').html("<p style='font-size:14px' class='mb-1'>Initial Price : "+formatRupiah(response.harga_awal,'Rp. ')+"</p>");                    
 
                 }
             });
@@ -940,19 +965,26 @@
 
         // //REALTIME
         let click = "FALSE";
+        let bwidthStart = $("body").width();
         function realTime(){
             // console.log("inter");
 
             // RESPONSIVE MODAL ADD PRODUCT
-            // if(click == "TRUE"){
-                let height = $("#addProductModalContent").height();
-                if(height > 110 && click == "FALSE"){
-                    $("#addProductModalContent").removeClass("h-100");
-                    $("#addProductModalContent").attr("style", "height:"+(height+80)+"px;");
-                    console.log(height+90);
-                    click = "TRUE";
-                }
-            // }
+            let bwidth = $("body").width();
+            let height = $("#addProductModalContent").height();
+            console.log(height);
+            if(bwidthStart != bwidth && height > 110){
+                $("#addProductModalContent").attr("style", "");                
+                $("#addProductModalContent").addClass("h-100");
+                height = $("#addProductModalContent").height();
+                click = "FALSE";
+            }
+            if(height > 110 && click == "FALSE"){
+                bwidthStart = bwidth;
+                $("#addProductModalContent").removeClass("h-100");
+                $("#addProductModalContent").attr("style", "height:"+(height+80)+"px;");
+                click = "TRUE";
+            }
             all();
             addValidation();
             // editValidation();

@@ -43,7 +43,7 @@ class ProductControllerAdmin extends CI_Controller {
 
     // READ
     public function getData(){
-        $data = $this->myModel->query('select * from tb_barang a left join tb_lelang b on a.id_barang = b.id_barang order by a.id_barang desc ')->result();
+        $data = $this->myModel->query('select * from tb_barang a left join tb_lelang b on a.id_barang = b.id_barang left join tb_kategori c on c.id_kategori = a.id_kategori left join tb_kota d on d.id_kota = a.id_kota  order by a.id_barang desc ')->result();
         echo json_encode($data);
     }
 
@@ -56,7 +56,7 @@ class ProductControllerAdmin extends CI_Controller {
     // get data where
     public function getDataWhere(){
         $id = $this->input->post('id');
-        $data = $this->myModel->query("select * from tb_barang a left join tb_lelang b on a.id_barang = b.id_barang where a.id_barang = ".$id." order by a.id_barang desc ")->row();
+        $data = $this->myModel->query("select * from tb_barang a left join tb_lelang b on a.id_barang = b.id_barang left join tb_kategori c on c.id_kategori = a.id_kategori left join tb_kota d on d.id_kota = a.id_kota where a.id_barang = ".$id." order by a.id_barang desc ")->row();
         echo json_encode($data);
     }
 

@@ -119,21 +119,18 @@
         confirmButtonText: 'Yes, Logout'
       }).then((result) => {
         if (result.value) {
-          var x = setInterval(function() {
-            location.reload();
-          },1500);
           Swal.fire(
             'Success',
             'Your has been logout.',
             'success'
           )
+          let base = "<?= base_url(); ?>"
           $.ajax({
-            type: "POST",
+            type: "GET",
             url: "<?= base_url('admin/DashboardControllerAdmin/logout') ?>",
-            data: "data",
-            dataType: "JSON",
+            data: "",
             success: function (response) {
-              
+              window.location.href = base;
             }
           });
         }
