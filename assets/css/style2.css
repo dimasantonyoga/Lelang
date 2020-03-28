@@ -1,0 +1,77 @@
+body{
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    font-family: 'poppins', sans-serif;
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+    background-color: #F3F4FA;
+}
+@font-face {
+    font-family: poppins;
+    src: url('../font/Poppins-Regular.ttf');
+  }
+.banner-one{
+    background-image: url('../img/bg.png');
+    width: 100%;
+    height: 1365px;
+    background-position: left top;
+    background-repeat: no-repeat;
+}
+
+
+
+.banner-content h1{
+    font-weight: 700;
+    font-size: 60px;
+    color: white;
+}
+
+
+.banner-content p{
+    font-weight: 400;
+    font-size: 16px;
+    color: white;
+}
+
+
+.banner-content{
+    top: 150px;
+}
+
+.animasi-img-2{
+    -webkit-animation: mover 1s infinite  alternate;
+    animation: mover 1s infinite  alternate;
+}
+
+.animasi-img-1{
+    -webkit-animation: mover2 3s infinite  alternate;
+    animation: mover2 1s infinite  alternate;
+}
+
+
+.navbar-nav .nav-item .nav-link{
+    font-weight:600;
+    font-size: 16px;
+    color: white;
+}
+
+.navbar-nav li a:hover{
+    color: red;
+    border-bottom: 2px solid #f433a2;
+}
+
+.navbar-nav .active{
+    border-bottom: 2px solid #f433a2;
+}
+
+@-webkit-keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-15px); }
+}
+
+@-webkit-keyframes mover2 {
+    0% { transform: scale(0.8); }
+    100% { transform: scale(0.9); }
+}

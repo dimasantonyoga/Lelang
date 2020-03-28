@@ -51,7 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 // User Interface
-$route['default_controller'] = 'welcome';
+$route['default_controller'] = 'HomeControllerUser';
 
     // User Auth
     $route['auth/login'] = 'user/AuthControllerUser';
