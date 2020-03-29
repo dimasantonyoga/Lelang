@@ -430,12 +430,52 @@
         // ========== START READ FUNCTION ============ //
         // =========================================== //
         // arrTglStart,arrTglEnd,arrStatus,arrP
-        // function countDown(tglStart,tglEnd,status,id){
-        //     for (let i = 0; i < id.length; i++) {
+        function countDown(tglStart,tglEnd,status,id){
+            for (let i = 0; i < id.length; i++) {
 
-                                
-        //     }
-        // } 
+                if(status[i] == "dibuka"){
+                    // Update the count down every 1 second
+                    var x = setInterval(function() {
+                        var countDownDate = new Date(tglEnd[i]).getTime();
+                        // Get today's date and time
+                        var now = new Date().getTime();
+                        // Find the distance between now and the count down date
+                        var distance = countDownDate - now;
+                        // Time calculations for days, hours, minutes and seconds
+                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                        // If the count down is over, write some text 
+                        if (distance <= 1) {
+                            $(id[i]).remove();
+                        }
+                        $(id[i]).html(" : "+days + "d " + hours + "h "
+                        + minutes + "m " + seconds+"s");
+                    }, 1000);   
+                }else if(status[i] == "coming_soon"){
+                    // Update the count down every 1 second
+                    var x = setInterval(function() {
+                        var countDownDate = new Date(tglStart[i]).getTime();
+                        // Get today's date and time
+                        var now = new Date().getTime();
+                        // Find the distance between now and the count down date
+                        var distance = countDownDate - now;
+                        // Time calculations for days, hours, minutes and seconds
+                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                        // If the count down is over, write some text 
+                        if (distance <= 1) {
+                            $(id[i]).remove();
+                        }
+                        $(id[i]).html(" : "+days + "d " + hours + "h "
+                        + minutes + "m " + seconds+"s");
+                    }, 1000);   
+                }                
+            }
+        } 
         function getData(){
             // GET DATA FORM
             let html ="";
@@ -474,27 +514,27 @@
                 dataType: "JSON",
                 success: function (response) {
                     let html = "";
-                    // let arrTglStart =[];
-                    // let arrTglEnd =[];
-                    // let arrStatus=[];
-                    // let arrP=[];
-                    // let p ="";
+                    let arrTglStart =[];
+                    let arrTglEnd =[];
+                    let arrStatus=[];
+                    let arrP=[];
+                    let p ="";
 
                     for (let i = 0; i < response.length; i++) {
-                        // if(response[i].status=="coming_soon"){
-                        //     p = "#pCom"+response[i].id_barang;
-                        // }else if(response[i].status=="dibuka"){
-                        //     p = "#pOpn"+response[i].id_barang;
-                        // }
-                        // let tglStart = response[i].tgl_dibuka;
-                        // let tglEnd = response[i].tgl_ditutup;
-                        // let status = response[i].status;
+                        if(response[i].status=="coming_soon"){
+                            p = "#pCom"+response[i].id_barang;
+                        }else if(response[i].status=="dibuka"){
+                            p = "#pOpn"+response[i].id_barang;
+                        }
+                        let tglStart = response[i].tgl_dibuka;
+                        let tglEnd = response[i].tgl_ditutup;
+                        let status = response[i].status;
 
 
-                        // arrTglStart.push(tglStart);
-                        // arrTglEnd.push(tglEnd);
-                        // arrStatus.push(status);
-                        // arrP.push(p); 
+                        arrTglStart.push(tglStart);
+                        arrTglEnd.push(tglEnd);
+                        arrStatus.push(status);
+                        arrP.push(p); 
                         // Template Nama
                         if(response[i].nama_barang.length >= 15){
                             templateNama = response[i].nama_barang.substring(0, 15)+". . .";
@@ -603,7 +643,7 @@
                     // $('#konten').remove();
                     $('#konten').html(html);
                     // Count Down
-                    // countDown(arrTglStart,arrTglEnd,arrStatus,arrP);
+                    countDown(arrTglStart,arrTglEnd,arrStatus,arrP);
 
                 }
             });
@@ -915,6 +955,7 @@
                         $('input[name="datetimesEdit"]').data('daterangepicker').setEndDate(response.detail.tgl_ditutup);
                         $('#productEditProductStartDate').val(response.detail.tgl_dibuka);
                         $('#productEditProductEndDate').val(response.detail.tgl_ditutup);
+                        
                     }
                     if(response.detail.status == "coming_soon"){
                         if(level == 1){
