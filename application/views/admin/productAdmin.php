@@ -70,7 +70,7 @@
                             </div>
                         </div>
                         <div id="btn-add" class="col-sm-12 col-md-4 col-lg-2 mt-3 text-lg-right">
-                            <button class=" btn btn-success btn-sm my-1" data-toggle="modal" data-target="#addProductModal">
+                            <button class=" btn btn-success btn-sm my-1" onclick="functionAdd()" data-toggle="modal" data-target="#addProductModal">
                                 <i class="fa fa-plus">
                                     Add Product
                                 </i>
@@ -118,6 +118,24 @@
 
     <!-- ===== START JAVASCRIPT ===== -->
     <script>
+        // DEKLARASI
+        let count =0;
+        let count2 =0;
+        let detailClick = false;
+        
+
+        // ============================================= //
+        // ========== START CREATE FUNCTION ============ //
+        // ============================================= //
+        let HalamanAdd = 1;
+        function functionAdd(){
+            $("#arrow-down-add").show();
+            $("#arrow-up-add").hide(); 
+            if(HalamanAdd == 2){
+                $("#produkCarousel").carousel("prev");
+                HalamanAdd = 1;
+            }
+        }        
         $(document).ready(function () {
             // Date time range
             $('input[name="datetimes"]').daterangepicker({
@@ -188,17 +206,6 @@
                 }
             }
         });
-    </script>
-    <script>
-        // DEKLARASI
-        let count =0;
-        let count2 =0;
-        let detailClick = false;
-        
-
-        // ============================================= //
-        // ========== START CREATE FUNCTION ============ //
-        // ============================================= //
         let weight = "OFF";
         // Setup Form Add (city,Weight)
         let html ="";
@@ -390,6 +397,7 @@
         }
 
         // CLICK SAVE IN MODAL ADD 
+        // cepat
         $('#submitAddProduct').submit(function(e){
             e.preventDefault();
             // DEKLARASI
@@ -407,7 +415,6 @@
                     // getData();
                     $("#productAddclose").click();
                     alertSuccess();
-                    console.log('oke');
                 }
             });
 
@@ -423,52 +430,12 @@
         // ========== START READ FUNCTION ============ //
         // =========================================== //
         // arrTglStart,arrTglEnd,arrStatus,arrP
-        function countDown(tglStart,tglEnd,status,id){
-            for (let i = 0; i < id.length; i++) {
+        // function countDown(tglStart,tglEnd,status,id){
+        //     for (let i = 0; i < id.length; i++) {
 
-                if(status[i] == "dibuka"){
-                    // Update the count down every 1 second
-                    var x = setInterval(function() {
-                        var countDownDate = new Date(tglEnd[i]).getTime();
-                        // Get today's date and time
-                        var now = new Date().getTime();
-                        // Find the distance between now and the count down date
-                        var distance = countDownDate - now;
-                        // Time calculations for days, hours, minutes and seconds
-                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                        // If the count down is over, write some text 
-                        if (distance <= 1) {
-                            $(id[i]).remove();
-                        }
-                        $(id[i]).html(" : "+days + "d " + hours + "h "
-                        + minutes + "m " + seconds+"s");
-                    }, 1000);   
-                }else if(status[i] == "coming_soon"){
-                    // Update the count down every 1 second
-                    var x = setInterval(function() {
-                        var countDownDate = new Date(tglStart[i]).getTime();
-                        // Get today's date and time
-                        var now = new Date().getTime();
-                        // Find the distance between now and the count down date
-                        var distance = countDownDate - now;
-                        // Time calculations for days, hours, minutes and seconds
-                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                        // If the count down is over, write some text 
-                        if (distance <= 1) {
-                            $(id[i]).remove();
-                        }
-                        $(id[i]).html(" : "+days + "d " + hours + "h "
-                        + minutes + "m " + seconds+"s");
-                    }, 1000);   
-                }                
-            }
-        } 
+                                
+        //     }
+        // } 
         function getData(){
             // GET DATA FORM
             let html ="";
@@ -489,12 +456,14 @@
                         }
                     }
                     $("#productAddCategory").html(html);
+                    // $("#productEditCategory").html(html);
                     // Provinsi
                     html ="<option></option>";
                     for(let i = 0 ; i < response.provinsi.length; i++){
                         html += "<option value='"+response.provinsi[i].id_provinsi+"'>"+response.provinsi[i].nama_provinsi+"</option>";
                     }
                     $("#productAddProvinsi").html(html);
+                    // $("#productEditProvinsi").html(html);
                 }
             });
         //     // GET DATA
@@ -505,27 +474,27 @@
                 dataType: "JSON",
                 success: function (response) {
                     let html = "";
-                    let arrTglStart =[];
-                    let arrTglEnd =[];
-                    let arrStatus=[];
-                    let arrP=[];
-                    let p ="";
+                    // let arrTglStart =[];
+                    // let arrTglEnd =[];
+                    // let arrStatus=[];
+                    // let arrP=[];
+                    // let p ="";
 
                     for (let i = 0; i < response.length; i++) {
-                        if(response[i].status=="coming_soon"){
-                            p = "#pCom"+response[i].id_barang;
-                        }else if(response[i].status=="dibuka"){
-                            p = "#pOpn"+response[i].id_barang;
-                        }
-                        let tglStart = response[i].tgl_dibuka;
-                        let tglEnd = response[i].tgl_ditutup;
-                        let status = response[i].status;
+                        // if(response[i].status=="coming_soon"){
+                        //     p = "#pCom"+response[i].id_barang;
+                        // }else if(response[i].status=="dibuka"){
+                        //     p = "#pOpn"+response[i].id_barang;
+                        // }
+                        // let tglStart = response[i].tgl_dibuka;
+                        // let tglEnd = response[i].tgl_ditutup;
+                        // let status = response[i].status;
 
 
-                        arrTglStart.push(tglStart);
-                        arrTglEnd.push(tglEnd);
-                        arrStatus.push(status);
-                        arrP.push(p); 
+                        // arrTglStart.push(tglStart);
+                        // arrTglEnd.push(tglEnd);
+                        // arrStatus.push(status);
+                        // arrP.push(p); 
                         // Template Nama
                         if(response[i].nama_barang.length >= 15){
                             templateNama = response[i].nama_barang.substring(0, 15)+". . .";
@@ -593,8 +562,8 @@
                             "<div class=' position-absolute shadow' style='top:0;right:0.9rem;left:0.9rem;bottom:0;z-index:1; background:rgba(49, 98, 141, 0.3);display:none;' >"+
                                 "<div class='px-5 h-100'>"+
                                     "<div class='h-100 d-flex justify-content-center align-items-center py-2'>"+
-                                        "<button style='width:35px;height:35px'  data-placement='bottom' title='Detail' type='button' data-toggle='modal' data-target='#detailProdukAdmin' onclick='detailFunction("+response[i].id_barang+")' class='btn btn-info btn-sm mx-2 text-center  rounded-circle'> <i class='fa fa-book'></i></button>"+
-                                        "<button style='width:35px;height:35px' data-toggle='tooltip' data-placement='bottom' title='Edit' type='button' class='btn btn-primary btn-sm mx-2 text-center  rounded-circle'> <i class='fa fa-edit'></i></button>"+
+                                        "<button style='width:35px;height:35px' data-placement='bottom' title='Detail' type='button' data-toggle='modal' data-target='#detailProdukAdmin' onclick='detailFunction("+response[i].id_barang+")' class='btn btn-info btn-sm mx-2 text-center  rounded-circle'> <i class='fa fa-book'></i></button>"+
+                                        "<button style='width:35px;height:35px' data-placement='bottom' title='Edit' data-toggle='modal' data-target='#editProductModal' onclick='editFunction("+response[i].id_barang+")' type='button' class='btn btn-primary btn-sm mx-2 text-center  rounded-circle'> <i class='fa fa-edit'></i></button>"+
                                         "<button style='width:35px;height:35px' data-toggle='tooltip' data-placement='bottom' title='Delete' type='button' onclick='deleteFunction("+response[i].id_barang+")' class='btn btn-danger btn-sm mx-2 text-center  rounded-circle'> <i class='fa fa-trash'></i> </button>"+
                                     "</div>"+
                                 "</div>"+
@@ -631,11 +600,10 @@
                     }
                     // let arrayTgl = [arrTgl];
 
-                    // console.log(arrP);
                     // $('#konten').remove();
                     $('#konten').html(html);
                     // Count Down
-                    countDown(arrTglStart,arrTglEnd,arrStatus,arrP);
+                    // countDown(arrTglStart,arrTglEnd,arrStatus,arrP);
 
                 }
             });
@@ -797,93 +765,423 @@
         // // ======================================= //
         // // ========== UPDATE FUNCTION ============ //
         // // ======================================= //
-        // // CLICK EDIT BUTTON IN ACTION TABLE
-        // function editFunction(id){
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "<?= base_url('admin/OfficerControllerAdmin/getDataWhere') ?>",
-        //         data: {
-        //             "id":id,
-        //         },
-        //         dataType: "JSON",
-        //         success: function (response) {
-        //             $('#officerEditName').val(response.nama_petugas);
-        //             $('#officerEditUsername').val(response.username);
-        //             $('#officerEditPassword').val('');
-        //             usernameEdit = response.username;
-        //         }
-        //     });
-        //     $('#officerEditSubmit').attr('dataid',id);
-        // }
-        // // CHECK USERNAME
-        // $('#officerEditUsername').keyup(function (e) { 
-        //     e.preventDefault();
-        //     let usernameEdit0 = $('#officerEditUsername').val();
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "<?= base_url('admin/OfficerControllerAdmin/checkUsername') ?>",
-        //         data: {
-        //             'username' : usernameEdit0 
-        //         },
-        //         dataType: "JSON",
-        //         success: function (response) {
-        //             if(response.success == true && usernameEdit0 != usernameEdit){
-        //                 $('#helpIdUserEditUsername').html('Username already exists !');
-        //                 $('#helpIdUserEditUsername').removeClass('text-muted');
-        //                 $('#helpIdUserEditUsername').addClass('text-danger');
-        //                 $('#officerEditUsername').addClass('border-danger');
-        //                 $('#officerEditUsername').addClass('text-danger');
-        //                 registeruss="duplicate";
-        //             }else{
-        //                 $('#helpIdUserEditUsername').html('Required, max 25 char');
-        //                 $('#helpIdUserEditUsername').addClass('text-muted');
-        //                 $('#helpIdUserEditUsername').removeClass('text-danger');
-        //                 $('#officerEditUsername').removeClass('border-danger');
-        //                 $('#officerEditUsername').removeClass('text-danger');
-        //                 registeruss="";
-        //             }   
-        //         }
-        //     });         
-        // });
+        // Date time range
+            $('input[name="datetimesEdit"]').daterangepicker({
+                timePicker: true,
+                timePicker24Hour: true,
+                timePickerSeconds: true,
+                linkedCalendars: false,
+                startDate: moment().startOf('hour'),
+                endDate: moment().startOf('hour').add(24, 'hour'),
+                minDate: moment().startOf('hour'),
+                drops: "up",
+                locale: {
+                    format: 'YYYY-MM-DD HH:mm:ss'
+                }
+            });
+
+            $('input[name="datetimesEdit"]').on('apply.daterangepicker', function(ev, picker) {
+                $('#productEditProductStartDate').val(picker.startDate.format('YYYY-MM-DD HH:mm:ss'));
+                $('#productEditProductEndDate').val(picker.endDate.format('YYYY-MM-DD HH:mm:ss'));
+            });
+
+            $('#productEditDescription').keyup(function (e) { 
+                let deskripsi = $('#productEditDescription').val();
+                let total = deskripsi.length;
+                $('#productEditDescriptionSmall').html(total+" / 100");
+            });
+
+            $('#productEditDescription').keydown(function (e) { 
+                let deskripsi = $('#productEditDescription').val();
+                let total = deskripsi.length;
+                $('#productEditDescriptionSmall').html(total+" / 100");
+            });
+            
+            $('#productEditAddress').keyup(function (e) { 
+                let deskripsi = $('#productEditAddress').val();
+                let total = deskripsi.length;
+                $('#productEditAddressSmall').html(total+" / 100");
+            });
+
+            $('#productEditAddress').keydown(function (e) { 
+                let deskripsi = $('#productEditAddress').val();
+                let total = deskripsi.length;
+                $('#productEditAddressSmall').html(total+" / 100");
+            });
+            
+
+            $("#editImage").change(function() {
+                viewImage(this);
+            });
+
+            function viewImage(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function(e) {
+                            let coba = $('input[name="datetimes"]').val();
+                            $('#cek_gambarEditProduk').val('ada');
+                            let html = "<img id='hasilImgEdit' src='"+e.target.result+"' style='width:230px;height:230px;border:1px solid #28A745;z-index:99' alt=''>"+
+                            "<div onclick='$(`#editImage`).click()' class='hover position-absolute d-flex align-items-center' style='width:230px;height:230px;font-size:20px;color : gray;cursor: pointer;z-index:100;background: rgba(0, 0, 0, 0.4);visibility: hidden;'>"+
+                                "<div class='text-center text-light py-2 w-100 rounded-circle'>"+
+                                    "<i class='fa fa-edit'></i> <br> edit"+
+                                "</div>"+
+                            "</div>";
+                            $('#viewImageEdit').html(html);
+                        }
+                        
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+            // });
+            let Editweight = "OFF";
+            // Setup Form Add (city,Weight)
+            // City
+            $("#productEditProvinsi").change(function (e) { 
+                e.preventDefault();
+                let id = $("#productEditProvinsi").val();
+                $.ajax({
+                    type: "POST",
+                    url: "<?= base_url('admin/ProductControllerAdmin/getDataFormCity') ?>",
+                    data:{
+                        'id' : id
+                    },
+                    dataType: "JSON",
+                    success: function (response) {
+                        // City
+                        html ="<option></option>";
+                        for(let i = 0 ; i < response.length; i++){
+                            html += "<option value='"+response[i].id_kota+"'> "+response[i].type+" "+response[i].nama_kota+"</option>";
+                        }
+                        $("#productEditCity").html(html);
+                    }
+                }); 
+            });
+            // Weight
+            $("#productEditCategory").change(function (e) { 
+                e.preventDefault();
+                let id = $("#productEditCategory").val();
+                $.ajax({
+                    type: "POST",
+                    url: "<?= base_url('admin/ProductControllerAdmin/getDataFormWeight') ?>",
+                    data:{
+                        'id' : id
+                    },
+                    dataType: "JSON",
+                    success: function (response) {
+                    let html =  "<div class='form-group'>"+
+                                    "<input name='weight' type='number' min='0' data-toggle='tooltip' data-placement='top' title='weight' placeholder='Weight (gram)'"+
+                                    "class='form-control' maxlength='20' id='productEditProductWeight' aria-describedby='helpId' >"+
+                                    "<small id='helpIdproductAddProductName' class='form-text text-muted'>Required, max 11 char</small>"+
+                                "</div>";
+                        if(response.ongkir == 1){
+                            $("#weightEdit").html(html);
+                            Editweight = "ON";
+                        }else{
+                            $("#weightEdit").html("<input name='weight' value='-' type='hidden'>");
+                            Editweight = "OFF";
+                        }
+
+                    }
+                }); 
+            });
+        let HalamanEdit = 1;
+        function editFunction(id){   
+            let level = <?=$this->session->userdata('id_level')?>;
+            $("#arrow-down-edit").show();
+            $("#arrow-up-edit").hide(); 
+            if(HalamanEdit == 2){
+                $("#produkCarouselEdit").carousel("prev");
+                HalamanEdit = 1;
+            }
+            let base = "<?= base_url(); ?>";
+            let = html ="<option><option>";
+            let idCity = 0; 
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('admin/ProductControllerAdmin/getDataWhereEdit') ?>",
+                data: {
+                    "id":id,
+                },
+                dataType: "JSON",
+                success: function (response) {
+                    $("#hasilImgEdit").attr("src", base+"assets/img/produk/"+response.detail.foto );
+                    $("#productEditProductName").val(response.detail.nama_barang);
+                    $("#productEditProductInitialPrice").val(response.detail.harga_awal);
+                    $("#productEditDescription").html(response.detail.deskripsi_barang);
+                    $("#productEditAddress").html(response.detail.alamat);
+                    if(level == 2 && response.detail.tgl_dibuka != '0000-00-00 00:00:00' && response.detail.tgl_ditutup != '0000-00-00 00:00:00' ){
+                        $('input[name="datetimesEdit"]').data('daterangepicker').setStartDate(response.detail.tgl_dibuka);
+                        $('input[name="datetimesEdit"]').data('daterangepicker').setEndDate(response.detail.tgl_ditutup);
+                        $('#productEditProductStartDate').val(response.detail.tgl_dibuka);
+                        $('#productEditProductEndDate').val(response.detail.tgl_ditutup);
+                    }
+                    if(response.detail.status == "coming_soon"){
+                        if(level == 1){
+                            html =  "<button type='button' style='font-size:12px' class='btn btn-outline-secondary col-lg-12 md-12 sm-12'>Status Coming Soon </button>";
+                        }else{
+                            html =  "<button type='button' style='font-size:12px' class='btn btn-outline-secondary col-lg-12 md-12 sm-12'>Status Coming Soon </button>"+
+                                "<button type='button' style='font-size:12px' class='btn btn-info col-lg-12 md-12 sm-12 mt-2'>Open Now </button>";
+                        }
+                    }else if(response.detail.status == "dibuka"){
+                        if(level == 1){
+                            html =  "<button type='button' style='font-size:12px' class='btn btn-outline-secondary col-lg-12 md-12 sm-12'>Status Active </button>";
+                        }else{
+                        html =  "<button type='button' style='font-size:12px' class='btn btn-outline-secondary col-lg-12 md-12 sm-12'>Status Active </button>"+
+                                "<button type='button' style='font-size:12px' class='btn btn-danger col-lg-12 md-12 sm-12 mt-2 '>Close Now </button>";
+                        }
+                    }else if(response.detail.status == "draf"){
+                        html =  "<button type='button' style='font-size:12px' class='btn btn-outline-secondary col-lg-12 md-12 sm-12'>Status Draf </button>";
+                    }else if(response.detail.status == "ditutup"){
+                        html =  "<button type='button' style='font-size:12px' class='btn btn-outline-secondary col-lg-12 md-12 sm-12'>Status Closed </button>";
+                    }
+                    $("#actionEdit").html(html);
+                    html ="";
+                    if(response.detail.weight != 0){
+                        html = "<div class='form-group'>"+
+                                    "<input value='"+response.detail.weight+"' name='weight' type='number' min='0' data-toggle='tooltip' data-placement='top' title='weight' placeholder='Weight (gram)'"+
+                                    "class='form-control' maxlength='20' id='productEditProductWeight' aria-describedby='helpId' >"+
+                                    "<small id='helpIdproductAddProductName' class='form-text text-muted'>Required, max 11 char</small>"+
+                                "</div>";
+                        $("#weightEdit").html(html);
+                        Editweight = "ON";
+                    }else{
+                        $("#weightEdit").html("<input name='weight' value='-' type='hidden'>");
+                        Editweight = "OFF";
+                    }
+                    html = "";
+                    // Category
+                    for(i=0;i < response.category.length; i++ ){
+                        if(response.category[i].ongkir == 0){
+                            if(response.category[i].id_kategori == response.detail.id_kategori){
+                                html += "<option selected value='"+response.category[i].id_kategori+"'>"+response.category[i].nama_kategori+" ( No shipping cost )</option>";
+                            }else{
+                                html += "<option value='"+response.category[i].id_kategori+"'>"+response.category[i].nama_kategori+" ( No shipping cost )</option>";
+                            }
+                        }else{
+                            if(response.category[i].id_kategori == response.detail.id_kategori){
+                                html += "<option selected value='"+response.category[i].id_kategori+"'>"+response.category[i].nama_kategori+" ( With shipping costs )</option>";
+                            }else{
+                                html += "<option value='"+response.category[i].id_kategori+"'>"+response.category[i].nama_kategori+" ( With shipping costs )</option>";
+                            }
+                        }
+                    }
+                    $("#productEditCategory").html(html);
+                    idCity = response.detail.id_kota;
+                    html="";
+                    $.ajax({
+                        type: "POST",
+                        url: "<?= base_url('admin/ProductControllerAdmin/getDataWhereEdit2') ?>",
+                        data: {
+                            "id":idCity,
+                        },
+                        dataType: "JSON",
+                        success: function (res) {
+                            // provinsi
+                            for(j=0;j < res.provinsi.length; j++ ){
+                                if(res.provinsi[j].id_provinsi == res.citySelect.id_provinsi){
+                                    html += "<option selected value='"+res.provinsi[j].id_provinsi+"'>"+res.provinsi[j].nama_provinsi+"</option>";
+                                }else{
+                                    html += "<option value='"+res.provinsi[j].id_provinsi+"'>"+res.provinsi[j].nama_provinsi+"</option>";
+                                }   
+                            }
+                            $("#productEditProvinsi").html(html);
+                            html="";
+                            $.ajax({
+                                type: "POST",
+                                url: "<?= base_url('admin/ProductControllerAdmin/getDataWhereEdit2') ?>",
+                                data: {
+                                    "id":res.citySelect.id_provinsi,
+                                },
+                                dataType: "JSON",
+                                success: function (r) {
+                                    // provinsi
+                                    for(i=0;i < r.city.length; i++ ){
+                                        if(r.city[i].id_kota == res.citySelect.id_kota){
+                                            html += "<option selected value='"+r.city[i].id_kota+"'>"+r.city[i].type+" "+r.city[i].nama_kota+"</option>";
+                                        }else{
+                                            html += "<option value='"+r.city[i].id_kota+"'>"+r.city[i].type+" "+r.city[i].nama_kota+"</option>";
+                                        }   
+                                    }
+                                    $("#productEditCity").html(html);
+                                }
+                            });
+                        }
+                    });
+
+                    let deskripsi = $('#productEditDescription').val();
+                    let address = $('#productEditAddress').val();
+                    let totala = deskripsi.length;
+                    let totalb = address.length;
+                    $('#productEditDescriptionSmall').html(totala+" / 100");
+                    $('#productEditAddressSmall').html(totalb+" / 100");
+                }
+            });
+            $('#IdEditSubmit').val(id);
+        }
 
         // // VALIDATE FORM EDIT
-        // function editValidation(){
-        //     if($('#officerEditName').val().length > 0 && $('#officerEditName').val().length <= 25 && $('#officerEditUsername').val().length > 0 && $('#officerEditUsername').val().length <= 25 && $('#officerEditPassword').val().length >= 8 && $('#officerEditPassword').val().length <= 25 && registeruss==""){
-        //         $('#officerEditSubmit').prop("disabled", false);                
-        //     }
-        //     else{
-        //         $('#officerEditSubmit').prop("disabled", true);
-        //     }
-        // }
+        function editValidation(){
+            let level = <?=$this->session->userdata('id_level')?>;
+            if(level == 1 ){
+                if(Editweight == "OFF"){
+                    if( $('#cek_gambarEditProduk').val().length > 0 && $('#productEditCategory').val().length > 0 && $('#productEditProductName').val().length > 0 && $('#productEditProductName').val().length <= 25 && $('#productEditProductInitialPrice').val().length > 0 && $('#productEditProductInitialPrice').val().length <= 20 && $('#productEditDescription').val().length > 0 && $('#productEditDescription').val().length <= 100 
+                    && $('#productEditProvinsi').val().length > 0 && $('#productEditCity').val().length > 0 
+                    && $('#productEditAddress').val().length > 0 && $('#productEditAddress').val().length <= 100
+                    ){
+                    $('#productEditSubmit').prop("disabled", false);                
+                    }
+                    else{
+                        $('#productEditSubmit').prop("disabled", true);
+                    }
+                }else{
+                    if( $('#cek_gambarEditProduk').val().length > 0 && $('#productEditCategory').val().length > 0 && $('#productEditProductName').val().length > 0 && $('#productEditProductName').val().length <= 25 && $('#productEditProductInitialPrice').val().length > 0 && $('#productEditProductInitialPrice').val().length <= 20 && $('#productEditDescription').val().length > 0 && $('#productEditDescription').val().length <= 100 
+                    && $('#productEditProvinsi').val().length > 0 && $('#productEditCity').val().length > 0 
+                    && $('#productEditAddress').val().length > 0 && $('#productEditAddress').val().length <= 100
+                    && $('#productEditProductWeight').val().length > 0 && $('#productEditProductWeight').val().length <= 11
+                    ){
+                    $('#productEditSubmit').prop("disabled", false);                
+                    }
+                    else{
+                        $('#productEditSubmit').prop("disabled", true);
+                    }
+                }
+            }else if(level == 2){
+                if(Editweight == "OFF"){
+                    if( $('#cek_gambarEditProduk').val().length > 0 && $('#productEditCategory').val().length > 0 && $('#productEditProductName').val().length > 0 && $('#productEditProductName').val().length <= 25 && $('#productEditProductInitialPrice').val().length > 0 && $('#productEditProductInitialPrice').val().length <= 20 && $('#productEditProductStartDate').val().length > 0 && $('#productEditProductEndDate').val().length > 0 && $('#productEditDescription').val().length > 0 && $('#productEditDescription').val().length <= 100 
+                    && $('#productEditProvinsi').val().length > 0 && $('#productEditCity').val().length > 0 
+                    && $('#productEditAddress').val().length > 0 && $('#productEditAddress').val().length <= 100
+                    ){
+                    $('#productEditSubmit').prop("disabled", false);                
+                    }
+                    else{
+                        $('#productEditSubmit').prop("disabled", true);
+                    }
+                }else{
+                    if( $('#cek_gambarEditProduk').val().length > 0 && $('#productEditCategory').val().length > 0 && $('#productEditProductName').val().length > 0 && $('#productEditProductName').val().length <= 25 && $('#productEditProductInitialPrice').val().length > 0 && $('#productEditProductInitialPrice').val().length <= 20 && $('#productEditProductStartDate').val().length > 0 && $('#productEditProductEndDate').val().length > 0 && $('#productEditDescription').val().length > 0 && $('#productEditDescription').val().length <= 100 
+                    && $('#productEditProvinsi').val().length > 0 && $('#productEditCity').val().length > 0 
+                    && $('#productEditAddress').val().length > 0 && $('#productEditAddress').val().length <= 100
+                    && $('#productEditProductWeight').val().length > 0 && $('#productEditProductWeight').val().length <= 11
+                    ){
+                    $('#productEditSubmit').prop("disabled", false);                
+                    }
+                    else{
+                        $('#productEditSubmit').prop("disabled", true);
+                    }
+                }
+            }
 
+            // Add success border
+                // Border Category
+                if($('#productEditCategory').val().length > 0){
+                    $("#select2-productEditCategory-container").parent().addClass('border-success');
+                    $("#select2-productEditCategory-container").parent().addClass('text-success');
+                }else{
+                    $("#select2-productEditCategory-container").parent().removeClass('border-success');
+                    $("#select2-productEditCategory-container").parent().removeClass('text-success');
+                }
+                // Border Product Name
+                if($('#productEditProductName').val().length > 0 && $('#productEditProductName').val().length <= 25){
+                    $('#productEditProductName').addClass('border-success');
+                    $('#productEditProductName').addClass('text-success');
+                }else{
+                    $('#productEditProductName').removeClass('border-success');
+                    $('#productEditProductName').removeClass('text-success');
+                }
+                // // Border Initial Price
+                if($('#productEditProductInitialPrice').val().length > 0 && $('#productEditProductInitialPrice').val().length <= 20){
+                    $('#productEditProductInitialPrice').addClass('border-success');
+                    $('#productEditProductInitialPrice').addClass('text-success');
+                }else{
+                    if($('#productEditProductInitialPrice').val().length > 20){
+                        $('#productEditProductInitialPrice').addClass('border-danger');
+                        $('#productEditProductInitialPrice').addClass('text-danger');
+                    }else{
+                        $('#productEditProductInitialPrice').removeClass('border-danger');
+                        $('#productEditProductInitialPrice').removeClass('text-danger');
+                    }
+                    $('#productEditProductInitialPrice').removeClass('border-success');
+                    $('#productEditProductInitialPrice').removeClass('text-success');
+                }
+                // // Border Deadline
+                if(level == 2 ){
+                    if($('#productEditProductStartDate').val().length > 0 && $('#productEditProductEndDate').val().length > 0){
+                        $('#productEditDeadline').addClass('border-success');
+                        $('#productEditDeadline').addClass('text-success');
+                    }else{
+                        $('#productEditDeadline').removeClass('border-success');
+                        $('#productEditDeadline').removeClass('text-success');
+                    }
+                }
+                // // Border Description
+                if($('#productEditDescription').val().length > 0 && $('#productEditDescription').val().length <= 100){
+                    $('#productEditDescription').addClass('border-success');
+                    $('#productEditDescription').addClass('text-success');
+                }else{
+                    $('#productEditDescription').removeClass('border-success');
+                    $('#productEditDescription').removeClass('text-success');
+                }
+                // // Border Weight
+                if(Editweight == "ON"){
+                    if($('#productEditProductWeight').val().length > 0 && $('#productEditProductWeight').val().length <= 11){
+                        $('#productEditProductWeight').addClass('border-success');
+                        $('#productEditProductWeight').addClass('text-success');
+                    }else{
+                        $('#productEditProductWeight').removeClass('border-success');
+                        $('#productEditProductWeight').removeClass('text-success');
+                    }
+                }
+                // Provinsi
+                if($('#productEditProvinsi').val().length > 0){
+                    $("#select2-productEditProvinsi-container").parent().addClass('border-success');
+                    $("#select2-productEditProvinsi-container").parent().addClass('text-success');
+                }else{
+                    $("#select2-productEditProvinsi-container").parent().removeClass('border-success');
+                    $("#select2-productEditProvinsi-container").parent().removeClass('text-success');
+                }
+                // // City
+                if($('#productEditCity').val().length > 0){
+                    $("#select2-productEditCity-container").parent().addClass('border-success');
+                    $("#select2-productEditCity-container").parent().addClass('text-success');
+                }else{
+                    $("#select2-productEditCity-container").parent().removeClass('border-success');
+                    $("#select2-productEditCity-container").parent().removeClass('text-success');
+                }
+                // // Address
+                if($('#productEditAddress').val().length > 0 && $('#productEditAddress').val().length <= 100){
+                    $('#productEditAddress').addClass('border-success');
+                    $('#productEditAddress').addClass('text-success');
+                }else{
+                    $('#productEditAddress').removeClass('border-success');
+                    $('#productEditAddress').removeClass('text-success');
+                }
+        
+                console.log(HalamanEdit);
+        
+        }
+        // cepat
         // // CLICK SAVE IN MODAL EDIT
-        // $('#officerEditSubmit').click(function (e) { 
-        //     e.preventDefault();
-        //     // DEKLARASI
-        //     let Addname = $('#officerEditName').val();
-        //     let Addusername = $('#officerEditUsername').val();
-        //     let Addtelp = $('#officerEditTelp').val();
-        //     let Addpassword = $('#officerEditPassword').val();
-        //     let id = $('#officerEditSubmit').attr('dataid');
+        $('#submitEditProduct').submit(function(e){
+            e.preventDefault();
+            // DEKLARASI
+            let form_data = new FormData($(this)[0]);
 
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "<?= base_url('admin/OfficerControllerAdmin/update') ?>",
-        //         data: {
-        //             'id' : id,
-        //             'registerName' : Addname,
-        //             'registerUsername' : Addusername,
-        //             'registerTelephone' : Addtelp,
-        //             'registerPassword' : Addpassword},
-        //         async : true,
-        //         dataType: "JSON",
-        //         success: function (response) {
-        //             getData();
-        //             $('#officerEditUsername').val('');
-        //         }
-        //     });
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('admin/ProductControllerAdmin/update') ?>",
+                data: form_data,
+                processData: false,
+                contentType: false,
+                async : true,
+                dataType: "JSON",
+                success: function (response) {
+                    // getData();
+                    $("#productEditclose").click();
+                    alertSuccess();
+                }
+            });
 
-        // });
+        });
         // // =========================================== //
         // // ========== END UPDATE FUNCTION ============ //
         // // =========================================== //
@@ -905,7 +1203,6 @@
             confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
             if (result.value) {
-                console.log("kol");
                 // CLICK YES IN MODAL DELETE
                 $.ajax({
                     type: "POST",
@@ -965,14 +1262,12 @@
 
         // //REALTIME
         let click = "FALSE";
+        let eclick = "FALSE";
         let bwidthStart = $("body").width();
         function realTime(){
-            // console.log("inter");
-
             // RESPONSIVE MODAL ADD PRODUCT
             let bwidth = $("body").width();
             let height = $("#addProductModalContent").height();
-            console.log(height);
             if(bwidthStart != bwidth && height > 110){
                 $("#addProductModalContent").attr("style", "");                
                 $("#addProductModalContent").addClass("h-100");
@@ -985,9 +1280,25 @@
                 $("#addProductModalContent").attr("style", "height:"+(height+80)+"px;");
                 click = "TRUE";
             }
+
+            // RESPONSIVE MODAL EDIT PRODUCT
+            let ebwidth = $("body").width();
+            let eheight = $("#editProductModalContent").height();
+            if(bwidthStart != ebwidth && eheight > 110){
+                $("#editProductModalContent").attr("style", "");                
+                $("#editProductModalContent").addClass("h-100");
+                eheight = $("#editProductModalContent").height();
+                eclick = "FALSE";
+            }
+            if(eheight > 110 && eclick == "FALSE"){
+                bwidthStart = ebwidth;
+                $("#editProductModalContent").removeClass("h-100");
+                $("#editProductModalContent").attr("style", "height:"+(eheight+80)+"px;");
+                eclick = "TRUE";
+            }
             all();
             addValidation();
-            // editValidation();
+            editValidation();
             checkActivity();
 
             // Check data di tabel aktifitas
@@ -1030,11 +1341,13 @@
         $('.carousel').carousel({
             interval: false
         }); 
+        // Add
         $("#arrow-up-add").hide();
         $("#arrow-up-add").click(function (e) { 
             e.preventDefault();
             $("#arrow-down-add").show();
-            $("#arrow-up-add").hide();            
+            $("#arrow-up-add").hide();  
+            HalamanAdd = 1;           
         });
         $("#arrow-down-add").click(function (e) { 
             e.preventDefault();
@@ -1044,6 +1357,26 @@
             }, 1000);
             $("#arrow-up-add").show();
             $("#arrow-down-add").hide();
+            HalamanAdd = 2;           
+        });
+        // Edit
+        $("#arrow-up-edit").hide();
+        $("#arrow-up-edit").click(function (e) { 
+            e.preventDefault();
+            $("#arrow-down-edit").show();
+            $("#arrow-up-edit").hide(); 
+            HalamanEdit = 1;           
+        });
+        $("#arrow-down-edit").click(function (e) { 
+            e.preventDefault();
+            $("#weightEdit").addClass("py-4");
+            setTimeout(() => {
+                $("#weightEdit").removeClass("py-4");
+            }, 1000);
+            $("#arrow-up-edit").show();
+            $("#arrow-down-edit").hide();
+            HalamanEdit = 2;           
+
         });
     </script>
     <!-- ===== END JAVASCRIPT ===== -->

@@ -148,7 +148,7 @@
         function getData(){
             // TAMPILAN DATA TABLES
             let template = 
-            "<table id='table' class='mt-3 table table-striped table-bordered table-responsive-xl' cellspacing='0' width='100%'>"+
+            "<table id='table' class='mt-3 table table-striped table-bordered table-responsive-sm' cellspacing='0' width='100%'>"+
                 "<thead>"+
                     "<tr>"+
                     "<th class='th-sm'>No"+

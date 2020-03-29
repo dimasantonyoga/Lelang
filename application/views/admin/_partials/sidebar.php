@@ -1,6 +1,6 @@
-  <main class="page-content">
+<main class="page-content">
     <!-- ===== Navbar ====== -->
-    <nav class="navbar navbar-expand-sm navbar-dark py-2 shadow" style="background-image: url('http://localhost/rival_price/assets/img/layouts/sidebar-bg.jpg'); background-size:cover">
+    <nav class="navbar navbar-expand-sm navbar-dark py-2 shadow" style="background-image: url('<?= base_url(); ?>/assets/img/layouts/sidebar-bg.jpg'); background-size:cover">
       <!-- ===== BUTTON SHOW ===== -->
       <a id="sidebar-button" class="navbar-brand mr-5 text-light">
         <i class="fas fa-bars"></i>
@@ -36,7 +36,7 @@
   </main>
 
 <!-- ===== START SIDEBAR ===== -->
-<nav id="sidebar" class="sidebar-wrapper">
+<nav id="sidebar" class="sidebar-wrapper" style="background-image: url('<?= base_url(); ?>/assets/img/layouts/sidebar-bg.jpg');">
     <div class="sidebar-content">
 
       <!-- ===== SIDEBAR HEADER ===== -->

@@ -664,3 +664,168 @@
 
 
 
+<!-- ===== Modal EDIT PRODUK ===== -->
+<div class="modal fade" id="editProductModal"  role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content h-100" id="editProductModalContent">
+            <form id="submitEditProduct" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title">EDIT PRODUCT</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body" style="z-index:9998">
+                    <div class="row">
+                        <div class="col-lg-4 mt-3 col-md-12 col-sm-12 mb-3 ">
+                            <div class="row">
+                                <div class="col-lg-12 d-flex justify-content-center" id="viewImageEdit" onmouseover="$( this ).children( '.hover' ).css( 'visibility', 'visible' )" onmouseout="$( this ).children( '.hover' ).css( 'visibility', 'hidden' )">
+                                    <img id='hasilImgEdit' src='' style='width:230px;height:230px;border:1px solid #28A745;z-index:99' alt=''>
+                                    <div onclick="$('#editImage').click()" class="hover position-absolute d-flex align-items-center" style="width:230px;height:230px;font-size:20px;color : gray;cursor: pointer;z-index:100;background: rgba(0, 0, 0, 0.4);visibility: hidden;">
+                                        <div class="text-center text-light py-2 w-100 rounded-circle">
+                                            <i class="fa fa-edit"></i> <br> edit
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" mt-4 col-lg-12 text-center" >
+                                    <div class="row d-flex px-3" id="actionEdit">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="file" name="file" class="d-none" id="editImage">
+                        <input type="hidden" name="cek_gambar" value="tidak" id="cek_gambarEditProduk">
+                        <input type="hidden" name="id" id="IdEditSubmit">
+                        <div class="col-lg-7 col-md-12 col-sm-12 d-flex align-items-start">
+                            <div id="produkCarouselEdit" class="carousel slide w-100" data-ride="carousel">
+                                <div class="carousel-inner" role="listbox">
+                                    <div class="carousel-item active">
+                                        <div class="row mt-3">
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <!-- ===== FORM Category ===== -->
+                                                <div class="form-group">
+                                                    <select name="category" class="form-control" placeholder="Choose Category" id="productEditCategory">
+                                                        <option value=""></option>
+                                                    </select>
+                                                    <small id="" class="form-text text-muted">Required</small>
+                                                </div>
+                                                <!-- ===== END FORM Category ===== -->
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <!-- ===== FORM Product Name ===== -->
+                                                <div class="form-group">
+                                                    <input name="name" type="text" data-toggle="tooltip" data-placement="top" title="Product Name" placeholder="Product Name"
+                                                    class="form-control" maxlength="25" id="productEditProductName" aria-describedby="helpId" >
+                                                    <small id="" class="form-text text-muted">Required, max 25 char</small>
+                                                </div>
+                                                <!-- ===== END FORM Product Name ===== -->
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <!-- ===== FORM Initial Price ===== -->
+                                                <div class="form-group">
+                                                    <input name="harga_awal" type="number" min="0" data-toggle="tooltip" data-placement="top" title="Initial Price" placeholder="Initial Price"
+                                                    class="form-control" maxlength="20" id="productEditProductInitialPrice" aria-describedby="helpId" >
+                                                    <small id="" class="form-text text-muted">Required, max 20 char</small>
+                                                </div>
+                                                <!-- ===== END FORM Initial Price ===== -->
+                                            </div>
+                                            <?php 
+                                                if($this->session->userdata('id_level') == 2){
+                                            ?>
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <!-- ===== FORM Deadline ===== -->
+                                                <div class="form-group">
+                                                    <input type="text" min="0" data-toggle="tooltip" name="datetimesEdit" data-placement="top" title="Deadline" placeholder="Deadline"
+                                                    class="form-control" id="productEditDeadline" aria-describedby="helpId" >
+                                                    <small id="" class="form-text text-muted">Required</small>
+                                                </div>                                
+                                                    <input name="tgl_mulai" type="hidden" id="productEditProductStartDate">                                    
+                                                    <input name="tgl_berakhir" type="hidden" id="productEditProductEndDate">
+
+                                                <!-- ===== END FORM Deadline ===== -->
+                                            </div>
+                                            <?php 
+                                                }
+                                            ?>
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <!-- ===== FORM Description ===== -->
+                                                <div class="form-group">
+                                                    <?php if($this->session->userdata('id_level') == 1){ ?>
+                                                        <textarea maxlength="100" id="productEditDescription" name="deskripsi" class="form-control" rows="4" placeholder="Description"></textarea>
+
+                                                    <?php } else{ ?>
+                                                        <textarea maxlength="100" id="productEditDescription" name="deskripsi" class="form-control" rows="3" placeholder="Description"></textarea>
+                                                    <?php } ?>
+                                                    <div class="d-flex justify-content-between">
+                                                        <small id="" class="form-text text-muted">Required, max 100 char</small>
+                                                        <small id="productEditDescriptionSmall" class="form-text text-muted">0 / 100</small>
+                                                    </div>
+                                                </div>
+                                                <!-- ===== END FORM Description ===== -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item w-100">
+                                    <div class="row mt-3">
+                                            <div class="col-sm-12 col-md-12 col-lg-12" id="weightEdit">
+                                                <!-- ===== FORM Weight ===== -->
+                                                
+                                                <!-- ===== END FORM Weight ===== -->
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <!-- ===== FORM Provinsi ===== -->
+                                                <div class="form-group">
+                                                    <select name="provinsi" class="form-control" placeholder="Choose Province" id="productEditProvinsi">
+                                                        <option value=""></option>
+                                                    </select>
+                                                    <small id="" class="form-text text-muted">Required</small>
+                                                </div>
+                                                <!-- ===== END FORM Provinsi ===== -->
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <!-- ===== FORM City ===== -->
+                                                <div class="form-group">
+                                                    <select name="kota" class="form-control" placeholder="Choose City" id="productEditCity">
+                                                        <option value=""></option>
+                                                    </select>
+                                                    <small id="" class="form-text text-muted">Required</small>
+                                                </div>
+                                                <!-- ===== END FORM City ===== -->
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                                <!-- ===== FORM Address ===== -->
+                                                <div class="form-group">
+                                                    <textarea maxlength="100" id="productEditAddress" name="alamat" class="form-control" rows="4" placeholder="Complete Address"></textarea>
+                                                    <div class="d-flex justify-content-between">
+                                                        <small id="helpIdproductAddress" class="form-text text-muted">Required, max 100 char</small>
+                                                        <small id="productEditAddressSmall" class="form-text text-muted">0 / 100</small>
+                                                    </div>
+                                                </div>
+                                                <!-- ===== END FORM Address ===== -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <i data-target="#produkCarouselEdit" id="arrow-up-edit" data-slide-to="0" class="arrow vert-move fa fa-chevron-up fa-lg"></i>
+                                </div>
+                                <div class="text-center mt-n3 mb-n2">
+                                    <i data-target="#produkCarouselEdit" id="arrow-down-edit" data-slide-to="1" class="arrow vert-move fa fa-chevron-down fa-lg"></i>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer position-absolute w-100" style="bottom:1px;background:#FFFFFF;z-index:9999">
+                    <button id="productEditclose" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button id="productEditSubmit" type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- ===== END MODAL EDIT PRODUK ===== -->
+
+
