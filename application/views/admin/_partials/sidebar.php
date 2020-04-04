@@ -8,8 +8,8 @@
       <!-- ===== END BUTTON SHOW ===== -->
       <!-- BUTTON CLOSE -->
       <!-- END BUTTON CLOSE -->
-      <a class="navbar-brand mr-auto" href="#">Rival Price</a>
-      <button id="logout" class="ml-auto btn btn-outline-light my-2 my-sm-0">Logout</button>
+      <a class="navbar-brand mr-auto" href="<?= base_url() ?>">Rival Price</a>
+      <button onclick="logout()" class="ml-auto btn btn-outline-light my-2 my-sm-0">Logout</button>
     </nav>
     <!-- ===== End Navbar ====== -->
 
@@ -41,9 +41,10 @@
 
       <!-- ===== SIDEBAR HEADER ===== -->
       <div class="sidebar-header">
+      <a href="<?= base_url('admin/account-setting') ?>">
         <!-- ===== USER PIC ===== -->
         <div class="user-pic">
-          <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+            <img class="img-responsive rounded shadow" id="fotoProfile" src="<?= base_url('assets/img/profile/default.jpg') ?>"
             alt="User picture">
         </div>
         <!-- ===== END USER PIC ===== -->
@@ -58,11 +59,13 @@
             <i class="fa fa-circle"></i><span>Online</span>
           </span>
         </div>
+      </a>
         <div id="close-sidebar" class="float-right">
           <i style="font-size:20px;" class="fas fa-times"></i>
         </div>
         <!-- ===== END USER INFO ===== -->
       </div>
+
       
       <!-- ===== END SIDEBAR HEADER ===== -->
 
@@ -74,7 +77,11 @@
             <span>General</span>
           </li>
           <li class="sidebar">
-            <a href="<?= base_url('admin/dashboard') ?>">
+            <?php if($page == "Dashboard"){ ?>
+              <a href="<?= base_url('admin/dashboard') ?>" style="background:rgba(252, 252, 252, 0.20);">
+            <?php }else{ ?>
+              <a href="<?= base_url('admin/dashboard') ?>">
+            <?php } ?>
               <i class="fa fa-tachometer-alt"></i>
               <span>Dashboard</span>
             </a>
@@ -83,13 +90,21 @@
           if($this->session->userdata('id_level') == 1){
           ?>
           <li class="sidebar">
-            <a href="<?= base_url('admin/user') ?>">
+            <?php if($page == "User"){ ?>
+              <a href="<?= base_url('admin/user') ?>" style="background:rgba(252, 252, 252, 0.20);">
+            <?php }else{ ?>
+              <a href="<?= base_url('admin/user') ?>">
+            <?php } ?>
               <i class="fa fa-users"></i>
               <span>User</span>
             </a>
           </li>
           <li class="sidebar">
-            <a href="<?= base_url('admin/officer') ?>">
+            <?php if($page == "Officer"){ ?>
+              <a href="<?= base_url('admin/officer') ?>" style="background:rgba(252, 252, 252, 0.20);">
+            <?php }else{ ?>
+              <a href="<?= base_url('admin/officer') ?>">
+            <?php } ?>
               <i class="fa fa-user"></i>
               <span>Officer</span>
             </a>
@@ -98,39 +113,46 @@
           }
           ?>
           <li class="sidebar">
-            <a href="<?= base_url('admin/category') ?>">
+            <?php if($page == "Category"){ ?>
+              <a href="<?= base_url('admin/category') ?>" style="background:rgba(252, 252, 252, 0.20);">
+            <?php }else{ ?>
+              <a href="<?= base_url('admin/category') ?>">
+            <?php } ?>
               <i class="fa fa-list-alt"></i>
               <span>Category</span>
             </a>
           </li>
           <li class="sidebar">
-            <a href="<?= base_url('admin/product') ?>">
+            <?php if($page == "Product"){ ?>
+              <a href="<?= base_url('admin/product') ?>" style="background:rgba(252, 252, 252, 0.20);">
+            <?php }else{ ?>
+              <a href="<?= base_url('admin/product') ?>">
+            <?php } ?>
               <i class="fa fa-archive"></i>
               <span>Product</span>
             </a>
           </li>
-          <!-- <li class="sidebar-dropdown">
+          <li class="header-menu">
+            <span>Personal</span>
+          </li>
+          <li class="sidebar">
+            <?php if($page == "Account Setting"){ ?>
+              <a href="<?= base_url('admin/account-setting') ?>" style="background:rgba(252, 252, 252, 0.20);">
+            <?php }else{ ?>
+              <a href="<?= base_url('admin/account-setting') ?>">
+            <?php } ?>
+              <i class="fa fa-cog"></i>
+              <span>Account Setting</span>
+            </a>
+          </li>
+          <li class="sidebar" onclick="logout()">
             <a href="#">
-              <i class="fa fa-archive"></i>
-              <span>Product</span> -->
-              <!-- <span class="badge badge-pill badge-danger">3</span> -->
-            <!-- </a>
-            <div class="sidebar-submenu">
-              <ul>
-                <li>
-                  <a href="<?= base_url('admin/product/all') ?>">All Product
-                  </a>
-                </li>
-                <li>
-                  <a href="#">Product Opened</a>
-                </li>
-                <li>
-                  <a href="#">Product Closed</a>
-                </li>
-              </ul>
-            </div>
-          </li> -->
-          <!--<li class="sidebar-dropdown">
+              <i class="fa fa-sign-out-alt"></i>
+              <span>Logout</span>
+            </a>
+          </li>
+          
+          <!-- <li class="sidebar-dropdown">
             <a href="#">
               <i class="far fa-gem"></i>
               <span>Components</span>

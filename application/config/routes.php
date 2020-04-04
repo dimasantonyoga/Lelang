@@ -63,6 +63,8 @@ $route['admin/user'] = 'admin/UserControllerAdmin';
 $route['admin/officer'] = 'admin/OfficerControllerAdmin';
 $route['admin/category'] = 'admin/CategoryControllerAdmin';
 $route['admin/product'] = 'admin/ProductControllerAdmin';
+$route['admin/account-setting'] = 'admin/AccountSettingControllerAdmin';
+
 
 
 

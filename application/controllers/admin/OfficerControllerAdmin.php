@@ -73,7 +73,15 @@ class OfficerControllerAdmin extends CI_Controller {
 
     // delete
     public function delete(){
+        // Delete image
         $id = $this->input->post('id');
+        $this->db->where('id_petugas', $id);
+        $row = $this->db->get('tb_petugas')->row();
+        if($row->foto != "default.jpg"){
+            unlink("./assets/img/profile/".$row->foto);
+        }
+        $this->db->where('id_petugas', $id);
+        $this->db->delete('tb_aktifitas');
         $this->db->where('id_petugas', $id);
         $this->db->delete('tb_petugas');
         // INSERT TABLE AktifitAS

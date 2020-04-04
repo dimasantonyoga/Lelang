@@ -430,7 +430,13 @@
         // ========== START READ FUNCTION ============ //
         // =========================================== //
         // arrTglStart,arrTglEnd,arrStatus,arrP
-        function countDown(tglStart,tglEnd,status,id){
+        let arrTglStart =[];
+        let arrTglEnd =[];
+        let arrStatus=[];
+        let arrP=[];
+        let p ="";
+        function getData(){
+            function countDown(tglStart,tglEnd,status,id){
             for (let i = 0; i < id.length; i++) {
 
                 if(status[i] == "dibuka"){
@@ -476,7 +482,6 @@
                 }                
             }
         } 
-        function getData(){
             // GET DATA FORM
             let html ="";
             // Category & Provinsi
@@ -514,18 +519,8 @@
                 dataType: "JSON",
                 success: function (response) {
                     let html = "";
-                    let arrTglStart =[];
-                    let arrTglEnd =[];
-                    let arrStatus=[];
-                    let arrP=[];
-                    let p ="";
 
                     for (let i = 0; i < response.length; i++) {
-                        if(response[i].status=="coming_soon"){
-                            p = "#pCom"+response[i].id_barang;
-                        }else if(response[i].status=="dibuka"){
-                            p = "#pOpn"+response[i].id_barang;
-                        }
                         let tglStart = response[i].tgl_dibuka;
                         let tglEnd = response[i].tgl_ditutup;
                         let status = response[i].status;
@@ -534,10 +529,9 @@
                         arrTglStart.push(tglStart);
                         arrTglEnd.push(tglEnd);
                         arrStatus.push(status);
-                        arrP.push(p); 
                         // Template Nama
-                        if(response[i].nama_barang.length >= 15){
-                            templateNama = response[i].nama_barang.substring(0, 15)+". . .";
+                        if(response[i].nama_barang.length >= 10){
+                            templateNama = response[i].nama_barang.substring(0, 10)+". . .";
                         }else{
                             templateNama = response[i].nama_barang;
                         }
@@ -552,6 +546,7 @@
                             templateStatus = "<td  class='pt-3 px-2'> : <span class='bg-warning py-1 px-2  text-white rounded' style='font-size:10px'>Draf</span></td>";
                         }
                         else if(response[i].status=="coming_soon"){
+                            p = "#pCom"+response[i].id_barang+$.now();
                             templatePrice = "<tr>"+
                                                 "<td>Initial Price </td>"+
                                                 "<td class='px-2'> : "+formatRupiah(response[i].harga_awal,'Rp. ')+"</td>"+
@@ -559,11 +554,12 @@
                             templateBidder =    "";
                             templateTime = "<tr>"+
                                                 "<td>Opened within </td>"+
-                                                "<td class='px-2 timer' id='pCom"+response[i].id_barang+"'> :  </td>"+
+                                                "<td class='px-2 timer' id='"+p.substring(1)+"'> :  </td>"+
                                             "</tr>";
                             templateStatus = "<td  class='pt-3 px-2'> : <span class='bg-success py-1 px-2  text-white rounded' style='font-size:10px'>Coming soon</span></td>";
                         }
                         else if(response[i].status=="dibuka"){
+                            p = "#pOpn"+response[i].id_barang+$.now();
                             templatePrice = "<tr>"+
                                                 "<td>Initial Price </td>"+
                                                 "<td class='px-2'> : "+formatRupiah(response[i].harga_awal,'Rp. ')+"</td>"+
@@ -574,7 +570,7 @@
                                                 "</tr>";
                             templateTime = "<tr>"+
                                                 "<td>Closed within </td>"+
-                                                "<td class='px-2 timer' id='pOpn"+response[i].id_barang+"'> :  </td>"+
+                                                "<td class='px-2 timer' id='"+p.substring(1)+"'> :  </td>"+
                                             "</tr>";
                             templateStatus = "<td  class='pt-3 px-2'> : <span class='bg-info py-1 px-2  text-white rounded' style='font-size:10px'>Active</span></td>";
                         }else if(response[i].status=="ditutup"){
@@ -637,6 +633,7 @@
                         "</div>"+
                         "</div>"+
                     "</div>";
+                    arrP.push(p); 
                     }
                     // let arrayTgl = [arrTgl];
 
@@ -805,6 +802,54 @@
         // // ======================================= //
         // // ========== UPDATE FUNCTION ============ //
         // // ======================================= //
+        // Draf
+        function createDraf(id){
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('admin/ProductControllerAdmin/updateWhere') ?>",
+                data: {
+                    "id":id,
+                    "status":"draf"
+                },
+                dataType: "JSON",
+                success: function (response) {
+                    $("#productEditclose").click();
+                    alertSuccess();
+                }
+            });
+        }
+        // Open NOw
+        function openNow(id){
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('admin/ProductControllerAdmin/updateWhere') ?>",
+                data: {
+                    "id":id,
+                    "status":"coming_soon"
+                },
+                dataType: "JSON",
+                success: function (response) {
+                    $("#productEditclose").click();
+                    alertSuccess();
+                }
+            });
+        }
+        // Close Now
+        function closeNow(id){
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('admin/ProductControllerAdmin/updateWhere') ?>",
+                data: {
+                    "id":id,
+                    "status":"dibuka"
+                },
+                dataType: "JSON",
+                success: function (response) {
+                    $("#productEditclose").click();
+                    alertSuccess();
+                }
+            });
+        }
         // Date time range
             $('input[name="datetimesEdit"]').daterangepicker({
                 timePicker: true,
@@ -959,22 +1004,27 @@
                     }
                     if(response.detail.status == "coming_soon"){
                         if(level == 1){
-                            html =  "<button type='button' style='font-size:12px' class='btn btn-outline-secondary col-lg-12 md-12 sm-12'>Status Coming Soon </button>";
+                            html =  "<button type='button' style='font-size:12px' class='mt-3 btn btn-outline-success col-lg-12 md-12 sm-12'>Status Coming Soon </button>"+
+                                    "<button type='button' style='font-size:12px' onclick='createDraf("+response.detail.id_barang+")' class='text-white mt-2 btn btn-warning col-lg-12 md-12 sm-12'>Create Draf</button>";
                         }else{
-                            html =  "<button type='button' style='font-size:12px' class='btn btn-outline-secondary col-lg-12 md-12 sm-12'>Status Coming Soon </button>"+
-                                "<button type='button' style='font-size:12px' class='btn btn-info col-lg-12 md-12 sm-12 mt-2'>Open Now </button>";
+                            html =  "<button type='button' style='font-size:12px' class='mt-4 btn btn-outline-success col-lg-12 md-12 sm-12'>Status Coming Soon </button>"+
+                                    "<button type='button' style='font-size:12px' onclick='createDraf("+response.detail.id_barang+")' class='text-white mt-2 btn btn-warning col-lg-12 md-12 sm-12'>Create Draf</button>"+
+                                    "<button type='button' style='font-size:12px' onclick='openNow("+response.detail.id_barang+")' class=' btn btn-success col-lg-12 md-12 sm-12 mt-2'>Open Now </button>";
                         }
                     }else if(response.detail.status == "dibuka"){
                         if(level == 1){
-                            html =  "<button type='button' style='font-size:12px' class='btn btn-outline-secondary col-lg-12 md-12 sm-12'>Status Active </button>";
+                            html =  "<button type='button' style='font-size:12px' class='mt-3 btn btn-outline-primary col-lg-12 md-12 sm-12'>Status Active </button>"+
+                                    "<button type='button' style='font-size:12px' onclick='createDraf("+response.detail.id_barang+")' class='text-white mt-2 btn btn-warning col-lg-12 md-12 sm-12'>Create Draf</button>";
                         }else{
-                        html =  "<button type='button' style='font-size:12px' class='btn btn-outline-secondary col-lg-12 md-12 sm-12'>Status Active </button>"+
-                                "<button type='button' style='font-size:12px' class='btn btn-danger col-lg-12 md-12 sm-12 mt-2 '>Close Now </button>";
+                        html =  "<button type='button' style='font-size:12px' class='mt-4 btn btn-outline-primary col-lg-12 md-12 sm-12'>Status Active </button>"+
+                                "<button type='button' style='font-size:12px' onclick='createDraf("+response.detail.id_barang+")' class='text-white mt-2 btn btn-warning col-lg-12 md-12 sm-12'>Create Draf</button>"+
+                                "<button type='button' style='font-size:12px' onclick='closeNow("+response.detail.id_barang+")' class='btn btn-danger col-lg-12 md-12 sm-12 mt-2 '>Close Now </button>";
                         }
                     }else if(response.detail.status == "draf"){
-                        html =  "<button type='button' style='font-size:12px' class='btn btn-outline-secondary col-lg-12 md-12 sm-12'>Status Draf </button>";
+                        html =  "<button type='button' style='font-size:12px' class='mt-3 text-white btn btn-warning col-lg-12 md-12 sm-12'>Status Draf </button>";
                     }else if(response.detail.status == "ditutup"){
-                        html =  "<button type='button' style='font-size:12px' class='btn btn-outline-secondary col-lg-12 md-12 sm-12'>Status Closed </button>";
+                        html =  "<button type='button' style='font-size:12px' class='mt-3 btn btn-danger col-lg-12 md-12 sm-12'>Status Closed </button>"+
+                        "<button type='button' style='font-size:12px' onclick='createDraf("+response.detail.id_barang+")' class='text-white mt-2 btn btn-warning col-lg-12 md-12 sm-12'>Create Draf</button>";
                     }
                     $("#actionEdit").html(html);
                     html ="";
@@ -1196,8 +1246,7 @@
                     $('#productEditAddress').removeClass('border-success');
                     $('#productEditAddress').removeClass('text-success');
                 }
-        
-                console.log(HalamanEdit);
+    
         
         }
         // cepat
@@ -1274,7 +1323,7 @@
 
         // // **************** OTHER FUNCTION ****************
         
-        // // GET DATA SIDEBAR
+        // // .GET DATA SIDEBAR
         function all(){
             $.ajax({
                 type: "GET",
@@ -1284,6 +1333,7 @@
                 success: function (response) {
                     $('#name').html(response.name);
                     $('#level').html(response.level);
+                    $('#fotoProfile').attr("src","<?= base_url()?>assets/img/profile/"+response.foto);
                 }
             });
         }
@@ -1305,7 +1355,10 @@
         let click = "FALSE";
         let eclick = "FALSE";
         let bwidthStart = $("body").width();
+        let removeArray = "FALSE";
         function realTime(){
+            
+
             // RESPONSIVE MODAL ADD PRODUCT
             let bwidth = $("body").width();
             let height = $("#addProductModalContent").height();
@@ -1344,7 +1397,25 @@
 
             // Check data di tabel aktifitas
             if(count != count2){
-                getData();
+                // if(removeArray == "FALSE"){
+                //     for (let i = 0; i < arrP.length; i++) {
+                //         $(arrP[i]).remove();
+                //         // $(arrP[i]).html(" ");
+                //         // arrTglStart[i] = ""; 
+                //         // arrTglStart 
+                //         // arrTglEnd
+                //         // removeArray = "TRUE";
+                //     }
+                    
+                // // }else{
+                //     arrTglStart = [];
+                //     arrTglStart = []; 
+                //     arrTglEnd = [];
+                //     arrP = [];
+                    
+                    getData();
+                    // removeArray = "FALSE";
+                // }
             }
 
             // ONLINE CHECK

@@ -200,7 +200,7 @@
                   name: 'Presentase',
                   colorByPoint: true,
                   data: [{
-                      name: 'Draft',
+                      name: 'Draf',
                       y: dataChart[0],
                       color:'orange'
 
@@ -226,7 +226,7 @@
           }); 
           }
 
-          // GET DATA SIDEBAR + DATA DASHBOARD
+          // .GET DATA SIDEBAR + DATA DASHBOARD
           function all(){
               $.ajax({
                   type: "GET",
@@ -247,6 +247,7 @@
                     $('#user').addClass('countAnim');
                     $('#officer').addClass('countAnim');
                     $('#product').addClass('countAnim');
+                    $('#fotoProfile').attr("src","<?= base_url()?>assets/img/profile/"+response.foto);
 
                     for(let i = 0; i < response.activity.length; i++){
                       let button="";
@@ -265,7 +266,7 @@
                       }
                       html += "<div class='row container px-0 basic-timeline datake"+i+"' style='margin-left:-300px'>"+
                                 "<div class='col-lg-2 col-sm-2 col-md-2 px-0 py-2'>"+
-                                  "<img class='w-100 rounded-circle' src='http://optima.trendsetterthemes.org/assets/images/face3.jpg' alt=''>"+
+                                  "<img class='w-100 rounded-circle' src='<?= base_url() ?>assets/img/profile/"+response.activity[i].foto+"' alt=''>"+
                                 "</div>"+
                                 border+
                                   "<b>"+response.activity[i].nama_petugas+"</b> <br>"+

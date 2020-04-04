@@ -153,7 +153,9 @@
                     "<tr>"+
                     "<th class='th-sm'>No"+
                     "</th>"+
-                    "<th class='th-sm'>Nama"+
+                    "<th class='th-sm'>Photo"+
+                    "</th>"+
+                    "<th class='th-sm'>Name"+
                     "</th>"+
                     "<th class='th-sm'>Username"+
                     "</th>"+
@@ -167,7 +169,9 @@
                     "<tr>"+
                     "<th class='th-sm'>No"+
                     "</th>"+
-                    "<th class='th-sm'>Nama"+
+                    "<th class='th-sm'>Photo"+
+                    "</th>"+
+                    "<th class='th-sm'>Name"+
                     "</th>"+
                     "<th class='th-sm'>Username"+
                     "</th>"+
@@ -186,10 +190,11 @@
                     let html = "";
                     for (let i = 0; i < response.real.length; i++) {
                         html+=  "<tr>"+
-                                    "<td>"+(i+1)+"</td>"+
-                                    "<td>"+response.real[i].nama_petugas+"</td>"+
-                                    "<td>"+response.real[i].username+"</td>"+
-                                    "<td class='d-flex justify-content-around'>"+
+                                    "<td class='align-middle'>"+(i+1)+"</td>"+
+                                    "<td class='text-center align-middle'><img src='<?= base_url(); ?>assets/img/profile/"+response.real[i].foto+"' id='detailImage' style='width:6rem;' class='img-thumbnail rounded-circle shadow' alt=''></td>"+
+                                    "<td class='align-middle'>"+response.real[i].nama_petugas+"</td>"+
+                                    "<td class='align-middle'>"+response.real[i].username+"</td>"+
+                                    "<td class='align-middle'>"+
                                         "<button onclick='editFunction("+response.real[i].id_petugas+")' data-toggle='modal' data-target='#editOfficerModal' class='btn text-primary'><i class='fa fa-edit'></i> Edit</button>"+
                                         "<button onclick='deleteFunction("+(i+1)+","+response.real[i].id_petugas+")' data-toggle='modal' data-target='#deleteOfficerModal' class='btn text-danger'><i class='fa fa-trash'></i> Delete</button>"+
                                     "</td>"+
@@ -420,7 +425,7 @@
 
 
 
-        // GET DATA SIDEBAR
+        // .GET DATA SIDEBAR
         function all(){
             $.ajax({
                 type: "GET",
@@ -430,6 +435,7 @@
                 success: function (response) {
                     $('#name').html(response.name);
                     $('#level').html(response.level);
+                    $('#fotoProfile').attr("src","<?= base_url()?>assets/img/profile/"+response.foto);
                 }
             });
         }

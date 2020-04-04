@@ -165,7 +165,7 @@
                     "<tr>"+
                     "<th class='th-sm'>No"+
                     "</th>"+
-                    "<th class='th-sm'>Nama"+
+                    "<th class='th-sm'>Name"+
                     "</th>"+
                     "<th class='th-sm'>Username"+
                     "</th>"+
@@ -181,7 +181,7 @@
                     "<tr>"+
                     "<th class='th-sm'>No"+
                     "</th>"+
-                    "<th class='th-sm'>Nama"+
+                    "<th class='th-sm'>Name"+
                     "</th>"+
                     "<th class='th-sm'>Username"+
                     "</th>"+
@@ -447,7 +447,7 @@
 
 
 
-        // GET DATA SIDEBAR
+        // .GET DATA SIDEBAR
         function all(){
             $.ajax({
                 type: "GET",
@@ -457,6 +457,7 @@
                 success: function (response) {
                     $('#name').html(response.name);
                     $('#level').html(response.level);
+                    $('#fotoProfile').attr("src","<?= base_url()?>assets/img/profile/"+response.foto);
                 }
             });
         }

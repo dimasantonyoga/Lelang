@@ -83,16 +83,16 @@ class DashboardControllerAdmin extends CI_Controller {
             $limitActivity =0;
         }
         if($this->session->userdata('id_level') == 1){
-            $activity = $this->db->query("SELECT `nama_petugas`,`nama_tabel`,`nama_aktifitas`,tb_aktifitas.create_at FROM `tb_aktifitas` LEFT JOIN tb_petugas ON tb_petugas.id_petugas = tb_aktifitas.id_petugas where tb_aktifitas.id_petugas !=0 order by create_at desc limit 4")->result();
+            $activity = $this->db->query("SELECT `foto`,`nama_petugas`,`nama_tabel`,`nama_aktifitas`,tb_aktifitas.create_at FROM `tb_aktifitas` LEFT JOIN tb_petugas ON tb_petugas.id_petugas = tb_aktifitas.id_petugas where tb_aktifitas.id_petugas !=0 order by create_at desc limit 4")->result();
         }else{
-            $activity = $this->db->query("SELECT `nama_petugas`,`nama_tabel`,`nama_aktifitas`,tb_aktifitas.create_at FROM `tb_aktifitas` LEFT JOIN tb_petugas ON tb_petugas.id_petugas = tb_aktifitas.id_petugas where tb_aktifitas.id_petugas !=0 and tb_aktifitas.id_petugas != 1 order by create_at desc limit 4")->result();
+            $activity = $this->db->query("SELECT `foto`,`nama_petugas`,`nama_tabel`,`nama_aktifitas`,tb_aktifitas.create_at FROM `tb_aktifitas` LEFT JOIN tb_petugas ON tb_petugas.id_petugas = tb_aktifitas.id_petugas where tb_aktifitas.id_petugas !=0 and tb_petugas.id_level != 1 order by create_at desc limit 4")->result();
         }
         $dataAdmin = $this->myModel->joinWhere('tb_petugas','tb_level','tb_petugas.id_level = tb_level.id_level','left','id_petugas = '.$this->session->userdata('id_petugas'))->row();
         $ChartDraf = $this->myModel->selectWhere('tb_lelang','status = "draf"')->num_rows();
         $ChartComing = $this->myModel->selectWhere('tb_lelang','status = "coming_soon"')->num_rows();
         $ChartOpen = $this->myModel->selectWhere('tb_lelang','status = "dibuka"')->num_rows();
         $ChartClosed = $this->myModel->selectWhere('tb_lelang','status = "ditutup"')->num_rows();
-        $data = array('user' => $user, 'officer' => $officer, 'product' => $product, 'name' => $dataAdmin->nama_petugas, 'username' => $dataAdmin->username, 'level' => $dataAdmin->level, 'activity' => $activity, 'ChartOpen' => $ChartOpen,'ChartComing' => $ChartComing, 'ChartDraf' => $ChartDraf, 'ChartClosed' => $ChartClosed );
+        $data = array('user' => $user, 'officer' => $officer, 'product' => $product, 'name' => $dataAdmin->nama_petugas, 'username' => $dataAdmin->username, 'level' => $dataAdmin->level, 'activity' => $activity, 'ChartOpen' => $ChartOpen,'ChartComing' => $ChartComing, 'ChartDraf' => $ChartDraf, 'ChartClosed' => $ChartClosed, 'foto' => $dataAdmin->foto );
         echo json_encode($data);
     }
 

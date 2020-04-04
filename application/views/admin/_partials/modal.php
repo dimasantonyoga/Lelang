@@ -687,7 +687,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class=" mt-4 col-lg-12 text-center" >
+                                <div class=" col-lg-12 text-center" >
                                     <div class="row d-flex px-3" id="actionEdit">
                                         
                                     </div>

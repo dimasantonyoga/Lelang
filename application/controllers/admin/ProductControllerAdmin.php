@@ -1,4 +1,3 @@
-
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -70,6 +69,29 @@ class ProductControllerAdmin extends CI_Controller {
         $data['citySelect'] = $this->myModel->query('select * from tb_kota where id_kota = '.$id)->row();
         $data['provinsi'] = $this->myModel->query('select * from tb_provinsi')->result();
         $data['city'] = $this->myModel->query('select * from tb_kota where id_provinsi = '.$id)->result();
+        echo json_encode($data);
+    }
+
+    // update where
+    public function updateWhere(){
+        $id = $this->input->post('id');
+        $status = $this->input->post('status');
+        if($status == "coming_soon"){
+            $data = array(
+                'tgl_dibuka' => date("Y-m-d H:i:s"),
+            );
+        }else if($status == "dibuka"){
+            $data = array(
+                'tgl_ditutup' => date("Y-m-d H:i:s"),
+            );
+        }else if($status == "draf"){
+            $data = array(
+                'tgl_dibuka' => "0000-00-00 00:00:00",
+                'tgl_ditutup' => "0000-00-00 00:00:00",
+            );
+        }
+        $this->db->where('id_barang', $id);
+        $this->myModel->update('tb_lelang',$data);
         echo json_encode($data);
     }
 
@@ -191,13 +213,12 @@ class ProductControllerAdmin extends CI_Controller {
         if($this->input->post('cek_gambar') == "tidak"){
             // INSERT TABLE
             if($this->input->post('weight') == "-"){
-                $weight = "";
+                $weight = 0;
             }else{
                 $weight = $this->input->post('weight');
             }
-            
             if($this->session->userdata('id_level') == 1){
-                $data = array(
+                $dataku = array(
                     'id_kategori' => $this->input->post('category'),
                     'id_kota' => $this->input->post('kota'),
                     'alamat' => $this->input->post('alamat'),
@@ -206,28 +227,16 @@ class ProductControllerAdmin extends CI_Controller {
                     'harga_awal'   => $this->input->post('harga_awal'),
                     'deskripsi_barang'   => $this->input->post('deskripsi'),
                 );
-                $id = $this->input->post('id');
-                $this->db->where('id_barang', $id);
-                $insert = $this->myModel->update('tb_barang',$data);
                 $data2 = array(
                     'id_petugas' => $this->session->userdata('id_petugas'),
                 );
                 $id = $this->input->post('id');
                 $this->db->where('id_barang', $id);
-                $insert = $this->myModel->update('tb_lelang',$data2);
-                // INSERT TABLE AktifitAS
-                $keterangan = array(
-                    'id_petugas' => $this->session->userdata('id_petugas'),
-                    'nama_aktifitas'  => "UPDATE",
-                    'nama_tabel'  => 'tb_barang'
-                );
-                $this->myModel->insert('tb_aktifitas',$keterangan);
-                $data = array('success' => false, 'msg' => '');
-                if($insert){
-                    $data = array('success' => true, 'msg' => '');
-                }
+                $updateBarang = $this->myModel->update('tb_barang',$dataku);
+                $this->db->where('id_barang', $id);
+                $updateLelang = $this->myModel->update('tb_lelang',$data2);
             }else if($this->session->userdata('id_level') == 2){
-                $data = array(
+                $dataku = array(
                     'id_kategori' => $this->input->post('category'),
                     'id_kota' => $this->input->post('kota'),
                     'alamat' => $this->input->post('alamat'),
@@ -236,9 +245,6 @@ class ProductControllerAdmin extends CI_Controller {
                     'harga_awal'   => $this->input->post('harga_awal'),
                     'deskripsi_barang'   => $this->input->post('deskripsi'),
                 );
-                $id = $this->input->post('id');
-                $this->db->where('id_barang', $id);
-                $insert = $this->myModel->update('tb_barang',$data);
                 $data2 = array(
                     'tgl_dibuka' => $this->input->post('tgl_mulai'),
                     'tgl_ditutup' => $this->input->post('tgl_berakhir'),
@@ -246,21 +252,19 @@ class ProductControllerAdmin extends CI_Controller {
                 );
                 $id = $this->input->post('id');
                 $this->db->where('id_barang', $id);
-                $insert = $this->myModel->update('tb_lelang',$data2);
-                $data = array('success' => false, 'msg' => '');
-                // INSERT TABLE AktifitAS
-                $keterangan = array(
-                    'id_petugas' => $this->session->userdata('id_petugas'),
-                    'nama_aktifitas'  => 'UPDATE',
-                    'nama_tabel'  => 'tb_barang'
-                );
-                $this->myModel->insert('tb_aktifitas',$keterangan);
-                if($insert){
-                    $data = array('success' => true, 'msg' => '');
-                }
+                $updateBarang = $this->myModel->update('tb_barang',$dataku);
+                $this->db->where('id_barang', $id);
+                $updateLelang = $this->myModel->update('tb_lelang',$data2);
             }
-        }
-        else{
+            // // INSERT TABLE AktifitAS
+            $keterangan = array(
+                'id_petugas' => $this->session->userdata('id_petugas'),
+                'nama_aktifitas'  => "UPDATE",
+                'nama_tabel'  => 'tb_barang'
+            );
+            $insertAktifitas = $this->myModel->insert('tb_aktifitas',$keterangan);
+            $data = array('success' => true, 'msg' => '');
+        }else{
             $id = $this->input->post('id');
             // Delete Image
             $this->db->where('id_barang', $id);
@@ -289,7 +293,7 @@ class ProductControllerAdmin extends CI_Controller {
                 }
                 
                 if($this->session->userdata('id_level') == 1){
-                    $data = array(
+                    $dataku = array(
                         'id_kategori' => $this->input->post('category'),
                         'id_kota' => $this->input->post('kota'),
                         'alamat' => $this->input->post('alamat'),
@@ -299,17 +303,16 @@ class ProductControllerAdmin extends CI_Controller {
                         'harga_awal'   => $this->input->post('harga_awal'),
                         'deskripsi_barang'   => $this->input->post('deskripsi'),
                     );
-                    $id = $this->input->post('id');
-                    $this->db->where('id_barang', $id);
-                    $insert = $this->myModel->update('tb_barang',$data);
                     $data2 = array(
                         'id_petugas' => $this->session->userdata('id_petugas'),
                     );
                     $id = $this->input->post('id');
                     $this->db->where('id_barang', $id);
-                    $insert = $this->myModel->update('tb_lelang',$data2);
+                    $UpdateBarang = $this->myModel->update('tb_barang',$dataku);
+                    $this->db->where('id_barang', $id);
+                    $UpdateLelang = $this->myModel->update('tb_lelang',$data2);
                 }else if($this->session->userdata('id_level') == 2){
-                    $data = array(
+                    $dataku = array(
                         'id_kategori' => $this->input->post('category'),
                         'id_kota' => $this->input->post('kota'),
                         'alamat' => $this->input->post('alamat'),
@@ -319,9 +322,6 @@ class ProductControllerAdmin extends CI_Controller {
                         'harga_awal'   => $this->input->post('harga_awal'),
                         'deskripsi_barang'   => $this->input->post('deskripsi'),
                     );
-                    $id = $this->input->post('id');
-                    $this->db->where('id_barang', $id);
-                    $insert = $this->myModel->update('tb_barang',$data);
                     $data2 = array(
                         'tgl_dibuka' => $this->input->post('tgl_mulai'),
                         'tgl_ditutup' => $this->input->post('tgl_berakhir'),
@@ -329,20 +329,18 @@ class ProductControllerAdmin extends CI_Controller {
                     );
                     $id = $this->input->post('id');
                     $this->db->where('id_barang', $id);
-                    $insert = $this->myModel->update('tb_lelang',$data2);
+                    $UpdateBarang = $this->myModel->update('tb_barang',$dataku);
+                    $this->db->where('id_barang', $id);
+                    $UpdateLelang = $this->myModel->update('tb_lelang',$data2);
                 }
-                $data = array('success' => false, 'msg' => '');
                 // INSERT TABLE AktifitAS
                 $keterangan = array(
                     'id_petugas' => $this->session->userdata('id_petugas'),
                     'nama_aktifitas'  => 'UPDATE',
                     'nama_tabel'  => 'tb_barang'
                 );
-                $this->myModel->insert('tb_aktifitas',$keterangan);
-                if($insert){
-                    $data = array('success' => true, 'msg' => '');
-                }
-                
+                $InsertAktifitas = $this->myModel->insert('tb_aktifitas',$keterangan);
+                $data = array('success' => true, 'msg' => '');
             }
         }
         echo json_encode($data);

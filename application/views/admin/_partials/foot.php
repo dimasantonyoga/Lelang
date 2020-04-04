@@ -94,8 +94,8 @@
         })
 
         Toast.fire({
-        icon: 'success',
-        title: 'Successfully'
+          icon: 'success',
+          title: 'Successfully'
         })
         // DEKLARASI
         let count =0;
@@ -107,8 +107,7 @@
     }
 
     // Logout
-    $("#logout").click(function (e) { 
-      e.preventDefault();
+    function logout(){
       Swal.fire({
         title: 'Are you sure?',
         text: "Want to logout !",
@@ -135,8 +134,7 @@
           });
         }
       })
-
-    });
+    }
 
     // Rupiah Function
     function formatRupiah(angka, prefix){

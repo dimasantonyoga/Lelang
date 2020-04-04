@@ -343,7 +343,7 @@
 
 
 
-        // GET DATA SIDEBAR
+        // .GET DATA SIDEBAR
         function all(){
             $.ajax({
                 type: "GET",
@@ -353,6 +353,7 @@
                 success: function (response) {
                     $('#name').html(response.name);
                     $('#level').html(response.level);
+                    $('#fotoProfile').attr("src","<?= base_url()?>assets/img/profile/"+response.foto);
                 }
             });
         }
