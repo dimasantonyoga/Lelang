@@ -2,6 +2,21 @@
         font-size: 0.9rem;
     }
 
+    @font-face {
+    font-family: brandon-italic;
+    src: url('../font/brandon-grotesque-regular-italic.otf');
+    }
+
+    @font-face {
+        font-family: poppins;
+        src: url('../font/Poppins-Regular.ttf');
+    }
+    
+    *{
+        /* font-family: 'brandon-italic'; */
+        font-family: 'poppins', sans-serif;
+    }
+    /* brandon-grotesque-regular-italic */
     /* animasi */
     .page-wrapper .sidebar-wrapper,
     .sidebar-wrapper .sidebar-brand > a,
@@ -389,6 +404,7 @@
     .sidebar a:hover{
         background:rgba(252, 252, 252, 0.20);
     }
+
 
     .chiller-theme .sidebar-wrapper .sidebar-menu ul li a i,
     .chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown div,

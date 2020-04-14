@@ -411,8 +411,8 @@
             $('#table_filter').children().addClass('w-100');
             $('#table_filter').children().addClass('penyaring');
             let btnAdd =  "<div id='btn-add' class='col-sm-12 col-md-4 col-lg-6 mt-3 text-lg-right'>"+
-                                "<button class='btn btn-success' data-toggle='modal' data-target='#addOfficerModal'>"+
-                                    "<i class='fa fa-plus'> Add Officer</i>"+
+                                "<button class='py-2 btn-sm btn btn-success' data-toggle='modal' data-target='#addOfficerModal'>"+
+                                    "<i class='fa fa-plus'></i> Add Officer"+
                                 "</button>"+
                             "</div>";
             $('#table_filter').parent().addClass('dttb');

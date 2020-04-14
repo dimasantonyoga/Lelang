@@ -227,7 +227,7 @@
         }
         if(validasiLogin != "gagal"){
             $.ajax({
-                type: "POST",
+                type: "POST", 
                 url: "<?= base_url('user/AuthControllerUser/loginCheck') ?>",
                 data: {
                     'username': loginUsername,

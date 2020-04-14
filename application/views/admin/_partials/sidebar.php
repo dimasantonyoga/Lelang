@@ -133,6 +133,45 @@
             </a>
           </li>
           <li class="header-menu">
+            <span>Transaction</span>
+          </li>
+          <?php
+          if($this->session->userdata('id_level') == 1){
+          ?>
+          <li class="sidebar">
+            <?php if($page == "Payment Method"){ ?>
+              <a href="<?= base_url('admin/payment-method') ?>" style="background:rgba(252, 252, 252, 0.20);">
+            <?php }else{ ?>
+              <a href="<?= base_url('admin/payment-method') ?>">
+            <?php } ?>
+              <i class="fa fa-credit-card"></i>
+              <span>Payment Method</span>
+            </a>
+          </li>
+          <?php
+          }
+          ?>
+          <li class="sidebar">
+            <?php if($page == "Payment"){ ?>
+              <a href="<?= base_url('admin/payment') ?>" style="background:rgba(252, 252, 252, 0.20);">
+            <?php }else{ ?>
+              <a href="<?= base_url('admin/payment') ?>">
+            <?php } ?>
+              <i class="far fa-list-alt"></i>
+              <span>Payment</span>
+            </a>
+          </li>
+          <li class="sidebar">
+            <?php if($page == "Recapitulation"){ ?>
+              <a href="<?= base_url('admin/recapitulation') ?>" style="background:rgba(252, 252, 252, 0.20);">
+            <?php }else{ ?>
+              <a href="<?= base_url('admin/recapitulation') ?>">
+            <?php } ?>
+              <i class="fa fa-book"></i>
+              <span>Recapitulation</span>
+            </a>
+          </li>
+          <li class="header-menu">
             <span>Personal</span>
           </li>
           <li class="sidebar">

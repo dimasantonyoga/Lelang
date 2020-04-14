@@ -165,6 +165,8 @@
                     "<tr>"+
                     "<th class='th-sm'>No"+
                     "</th>"+
+                    "<th class='th-sm'>Photo"+
+                    "</th>"+
                     "<th class='th-sm'>Name"+
                     "</th>"+
                     "<th class='th-sm'>Username"+
@@ -180,6 +182,8 @@
                 "<tfoot>"+
                     "<tr>"+
                     "<th class='th-sm'>No"+
+                    "</th>"+
+                    "<th class='th-sm'>Photo"+
                     "</th>"+
                     "<th class='th-sm'>Name"+
                     "</th>"+
@@ -203,10 +207,11 @@
                     for (let i = 0; i < response.real.length; i++) {
                         html+=  "<tr>"+
                                     "<td>"+(i+1)+"</td>"+
+                                    "<td class='text-center align-middle'><img src='<?= base_url(); ?>assets/img/profile/"+response.real[i].foto+"' id='detailImage' style='width:6rem;' class='img-thumbnail rounded-circle shadow' alt=''></td>"+
                                     "<td>"+response.real[i].nama_lengkap+"</td>"+
                                     "<td>"+response.real[i].username+"</td>"+
                                     "<td>"+response.real[i].telp+"</td>"+
-                                    "<td class='d-flex justify-content-around'>"+
+                                    "<td class='align-middle'>"+
                                         "<button onclick='editFunction("+response.real[i].id_user+")' data-toggle='modal' data-target='#editUserModal' class='btn text-primary'><i class='fa fa-edit'></i> Edit</button>"+
                                         "<button onclick='deleteFunction("+(i+1)+","+response.real[i].id_user+")' data-toggle='modal' data-target='#deleteUserModal' class='btn text-danger'><i class='fa fa-trash'></i> Delete</button>"+
                                     "</td>"+
@@ -433,8 +438,8 @@
             $('#table_filter').children().addClass('w-100');
             $('#table_filter').children().addClass('penyaring');
             let btnAdd =  "<div id='btn-add' class='col-sm-12 col-md-4 col-lg-6 mt-3 text-lg-right'>"+
-                                "<button class='btn btn-success' data-toggle='modal' data-target='#addUserModal'>"+
-                                    "<i class='fa fa-plus'> Add User</i>"+
+                                "<button class='py-2 btn-sm btn btn-success' data-toggle='modal' data-target='#addUserModal'>"+
+                                    "<i class='fa fa-plus'></i> Add User"+
                                 "</button>"+
                             "</div>";
             $('#table_filter').parent().addClass('dttb');

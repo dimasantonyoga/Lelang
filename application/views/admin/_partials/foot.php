@@ -106,6 +106,11 @@
         
     }
 
+    // url function
+    function url_set(text) { 
+      return text.split(' ').join('-');
+    }
+
     // Logout
     function logout(){
       Swal.fire({

@@ -19,62 +19,63 @@
                 <div id="table_wrapper" class="dataTables_wrapper dt-bootstrap4">
                     <div class="row">
                         <div class="col-sm-12 col-md-6 col-lg-2">
-                            <div class="dataTables_length w-100" id="table_length">
-                                <label class="w-100">
-                                    Show 
-                                    <select name="table_length" aria-controls="table" class=" custom-select custom-select-sm form-control form-control-sm">
-                                        <option value="10">10</option>
-                                        <option value="25">30</option>
-                                        <option value="50">60</option>
-                                        <option value="100">100</option>
-                                    </select>
-                                    entries
-                                </label>
+                            <div class="form-group">
+                              <label for="">Show</label>
+                              <select class="form-control" name="" id="idShow">
+                                <option value="4">4</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="40">40</option>
+                                <option value="80">80</option>
+                                <option value="160">160</option>
+                              </select>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6 col-lg-2">
-                            <div class="dataTables_length" id="table_length">
-                                <label class="w-100">
-                                    Group by status 
-                                    <select name="table_length" aria-controls="table" class="custom-select custom-select-sm form-control form-control-sm">
-                                        <option value="10">All</option>
-                                        <option value="25">Opened</option>
-                                        <option value="50">Closed Down</option>
-                                        <option value="100">Draf</option>
-                                    </select>
-                                </label>
+                            <div class="form-group">
+                              <label for="">Group by status</label>
+                              <select class="form-control" name="" id="idStatus">
+                                <option value="all">All</option>
+                                <option value="d">Draf</option>
+                                <option value="cs">Coming Soon</option>
+                                <option value="o">Opened</option>
+                                <option value="cd">Closed Down</option>
+                              </select>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-12 col-lg-2">
-                            <div class="dataTables_length" id="table_length">
-                                <label class="w-100">
-                                    Sort by time
-                                    <select name="table_length" aria-controls="table" class="custom-select custom-select-sm form-control form-control-sm">
-                                        <option value="10">Descending</option>
-                                        <option value="25">Ascending</option>
-                                    </select>
-                                </label>
+                            <div class="form-group">
+                              <label for="">Sort by time</label>
+                              <select class="form-control" name="" id="idTime">
+                                <option value="dsc">Descending</option>
+                                <option value="asc">Ascending</option>
+                              </select>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-12 col-lg-4">
-                            <div id="table_filter" class="dataTables_filter">
-                                <label class="w-75 penyaring mr-auto">
-                                    Search:
-                                    <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="table">
-                                </label>
-                                <button class="btn btn-info btn-sm mt-n1" data-toggle="modal" data-target="#addProductModal">
-                                    <i class="fa fa-search">
-                                        Filter
+                        <div class="col-sm-12 col-md-12 col-lg-2">
+                            <div class="form-group">
+                              <label for="">Category</label>
+                              <select class="form-control" name="" id="idCategory">
+                                
+                              </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-2">
+                            <div class="form-group">
+                              <label for="">Search</label>
+                              <input type="search"
+                                class="form-control" name="" id="idSearch" aria-describedby="helpId" placeholder="">
+                            </div>
+                        </div>
+                        <div id="btn-add" class="col-sm-12 col-md-4 col-lg-2 text-lg-right">
+                            <div class="form-group">
+                                <label for="" class="invisible">Category</label>
+                                <button class="py-2 btn-sm btn btn-success" onclick="functionAdd()" data-toggle="modal" data-target="#addProductModal">
+                                    <i class="fa fa-plus">
                                     </i>
+                                    Add Product
                                 </button>
                             </div>
-                        </div>
-                        <div id="btn-add" class="col-sm-12 col-md-4 col-lg-2 mt-3 text-lg-right">
-                            <button class=" btn btn-success btn-sm my-1" onclick="functionAdd()" data-toggle="modal" data-target="#addProductModal">
-                                <i class="fa fa-plus">
-                                    Add Product
-                                </i>
-                            </button>
                         </div>
                     </div>
                     <div class="row" id="konten">
@@ -82,21 +83,13 @@
                     </div>
                     <div class="row mt-4">
                         <div class="col-sm-12 col-md-5">
-                            <div class="dataTables_info" id="table_info" role="status" aria-live="polite">Showing 1
-                                to 1 of 1 entries</div>
+                            <div class="dataTables_info" id="table_info" role="status" aria-live="polite">
+                               
+                            </div>
                         </div>
                         <div class="col-sm-12 col-md-7">
-                            <div class="dataTables_paginate paging_simple_numbers float-right" id="table_paginate">
-                                <ul class="pagination">
-                                    <li class="paginate_button page-item previous disabled" id="table_previous"><a
-                                            href="#" aria-controls="table" data-dt-idx="0" tabindex="0"
-                                            class="page-link">Previous</a></li>
-                                    <li class="paginate_button page-item active"><a href="#" aria-controls="table"
-                                            data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-                                    <li class="paginate_button page-item next disabled" id="table_next"><a href="#"
-                                            aria-controls="table" data-dt-idx="2" tabindex="0"
-                                            class="page-link">Next</a></li>
-                                </ul>
+                            <div class="dataTables_paginate paging_simple_numbers float-right" id="pagination">
+                                
                             </div>
                         </div>
                     </div>
@@ -122,6 +115,12 @@
         let count =0;
         let count2 =0;
         let detailClick = false;
+        let fil_number = 0;
+        let fil_halaman = 4;
+        let fil_status = "all";
+        let fil_time = "dsc";
+        let fil_search = "-----------";
+        let fil_kategori = "all";
         
 
         // ============================================= //
@@ -397,7 +396,6 @@
         }
 
         // CLICK SAVE IN MODAL ADD 
-        // cepat
         $('#submitAddProduct').submit(function(e){
             e.preventDefault();
             // DEKLARASI
@@ -429,13 +427,160 @@
         // =========================================== //
         // ========== START READ FUNCTION ============ //
         // =========================================== //
+        
+        // Tampilkan Pelelang
+        function pelelang(){
+            detailClick = false;
+            HalamanDetail = 2;
+            let id = $(".cekBid").attr("dataId");
+            let html = "";
+            let head = "<thead>"+
+                            "<tr>"+
+                                "<th>No</th>"+
+                                "<th>Photo</th>"+
+                                "<th>Name</th>"+
+                                "<th>Date</th>"+
+                                "<th>Asking price</th>"+
+                            "</tr>"+
+                        "</thead>"+
+                        "<tbody>";
+                footer ="</tbody>"+
+                        "<tfoot>"+
+                            "<tr>"+
+                                "<th>No</th>"+
+                                "<th>Photo</th>"+
+                                "<th>Name</th>"+
+                                "<th>Date</th>"+
+                                "<th>Asking price</th>"+
+                            "</tr>"+
+                        "</tfoot>";
+            $("#modalPelelang").modal("show");
+            $.ajax({
+                type: "GET",
+                url: "<?= base_url(); ?>user/DetailControllerUser/getDataPelelang",
+                data: {
+                    id:id
+                },
+                dataType: "JSON",
+                success: function (response) {
+                    let loginCek = "<?= $this->session->userdata('login_user'); ?>"
+                    let id_user = 0;
+                    if(loginCek == "true"){
+                        id_user = "<?= $this->session->userdata('id_user'); ?>";
+                        id_user = parseInt(id_user);
+                    }
+
+                    for (let i = 0; i < response.length; i++) {
+                        if( response[i].id_user == id_user ){
+                            html+=  "<tr class='text-primary'>"+
+                                    "<td class='align-middle'>"+((i)+1)+"</td>"+
+                                    "<td class='align-middle'><img style='width:100px' class='rounded-circle' src='<?= base_url(); ?>assets/img/profile/"+response[i].foto+"' alt='"+response[i].foto+"'></td>"+
+                                    "<td class='align-middle'>"+response[i].nama_lengkap+"</td>"+
+                                    "<td class='align-middle'>"+response[i].create_at+"</td>"+
+                                    "<td class='align-middle'>"+formatRupiah(response[i].penawaran_harga,"Rp. ")+"</td>"+
+                                "</tr>";
+                        }else{
+                            html+=  "<tr>"+
+                                    "<td class='align-middle'>"+((i)+1)+"</td>"+
+                                    "<td class='align-middle'><img style='width:100px' class='rounded-circle' src='<?= base_url(); ?>assets/img/profile/"+response[i].foto+"' alt='"+response[i].foto+"'></td>"+
+                                    "<td class='align-middle'>"+response[i].nama_lengkap+"</td>"+
+                                    "<td class='align-middle'>"+response[i].create_at+"</td>"+
+                                    "<td class='align-middle'>"+formatRupiah(response[i].penawaran_harga,"Rp. ")+"</td>"+
+                                "</tr>";
+                        }
+                    }
+                    let tb = head+html+footer;
+                    $(".tablePelelang").html(tb);
+                    $('.tablePelelang').DataTable();
+                    // Mengatur responsive data tables bagian show
+                    $('#DataTables_Table_0_length').addClass('text-left');
+                    $('#DataTables_Table_0_length').parent().addClass('col-sm-12');
+                    $('#DataTables_Table_0_length').parent().addClass('mb-3');
+                    $('#DataTables_Table_0_length').children().addClass('w-100');
+                    $('#DataTables_Table_0_length').parent().addClass('col-12');
+                    $('#DataTables_Table_0_length').parent().addClass('col-lg-6');
+                    $('#DataTables_Table_0_length').parent().addClass('col-xl-6');
+                    // $('#DataTables_Table_0_length').parent().addClass('col-md-4');
+                    // $('#DataTables_Table_0_length').parent().addClass('col-lg-2');
+
+                    // Mengatur responsive data tables bagian search
+                    $('#DataTables_Table_0_filter').addClass('text-right');
+                    $('#DataTables_Table_0_filter').parent().addClass('col-sm-12');
+                    $('#DataTables_Table_0_filter').parent().addClass('mb-3');
+                    $('#DataTables_Table_0_filter').children().addClass('w-100');
+                    $('#DataTables_Table_0_filter').children().addClass('text-left');
+                    $('#DataTables_Table_0_filter').parent().addClass('col-12');
+                    $('#DataTables_Table_0_filter').parent().addClass('col-lg-6');
+                    $('#DataTables_Table_0_filter').parent().addClass('col-xl-6');
+                    // $('#DataTables_Table_0_filter').parent().removeClass('col-md-6');
+                    // $('#DataTables_Table_0_filter').parent().addClass('col-md-4');
+                    // $('#DataTables_Table_0_filter').parent().addClass('col-lg-4');
+                    // $('#DataTables_Table_0_filter').children().addClass('w-100');
+                    // $('#DataTables_Table_0_filter').children().addClass('penyaring');
+
+                    $('#DataTables_Table_0_paginate').addClass('float-right');
+                    $('#DataTables_Table_0_info').addClass('float-left');
+                }
+            });
+        }
+        
+
         // arrTglStart,arrTglEnd,arrStatus,arrP
         let arrTglStart =[];
         let arrTglEnd =[];
         let arrStatus=[];
         let arrP=[];
         let p ="";
-        function getData(){
+
+        // Cepat
+        $("#idShow").change(function () { 
+            fil_halaman = $("#idShow").val();
+            getData(fil_number,fil_halaman,fil_status,fil_time,fil_search,fil_kategori);
+        });
+        $("#idStatus").change(function (e) { 
+            fil_status = $("#idStatus").val();
+            getData(fil_number,fil_halaman,fil_status,fil_time,fil_search,fil_kategori);            
+        });
+        $("#idTime").change(function (e) { 
+            e.preventDefault();
+            fil_time = $("#idTime").val();
+            getData(fil_number,fil_halaman,fil_status,fil_time,fil_search,fil_kategori);            
+        });
+        $("#idSearch").keyup(function (e) { 
+            fil_search = $("#idSearch").val();
+            if(fil_search == ''){
+                fil_search = '-----------';
+            }
+            getData(fil_number,fil_halaman,fil_status,fil_time,fil_search,fil_kategori);
+        });
+        $("#idCategory").change(function (e) { 
+            e.preventDefault();
+            fil_kategori = $("#idCategory").val();
+            getData(fil_number,fil_halaman,fil_status,fil_time,fil_search,fil_kategori);
+        });
+        // Pagination
+        $('#pagination').on('click','a',function(e){
+            e.preventDefault(); 
+            fil_number = $(this).attr('data-ci-pagination-page');
+            getData(fil_number,fil_halaman,fil_status,fil_time,fil_search,fil_kategori);
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "<?= base_url('admin/ProductControllerAdmin/getDataForm') ?>",
+            data: "",
+            dataType: "JSON",
+            success: function (response) {
+                // Category
+                let ctg = "";
+                for(let i = 0 ; i < response.category.length; i++){
+                    ctg += "<option value='"+response.category[i].id_kategori+"'>"+response.category[i].nama_kategori+"</option>";
+                }
+                $("#idCategory").html("<option value='all'>All</option>"+ctg);
+            }
+        });
+
+        function getData(fil_number,fil_halaman,fil_status,fil_time,fil_search,fil_kategori){
             function countDown(tglStart,tglEnd,status,id){
             for (let i = 0; i < id.length; i++) {
 
@@ -492,7 +637,6 @@
                 dataType: "JSON",
                 success: function (response) {
                     // Category
-                    html ="<option></option>";
                     for(let i = 0 ; i < response.category.length; i++){
                         if(response.category[i].ongkir == 0){
                             html += "<option value='"+response.category[i].id_kategori+"'>"+response.category[i].nama_kategori+" ( No shipping cost )</option>";
@@ -500,7 +644,7 @@
                             html += "<option value='"+response.category[i].id_kategori+"'>"+response.category[i].nama_kategori+" ( With shipping costs )</option>";
                         }
                     }
-                    $("#productAddCategory").html(html);
+                    $("#productAddCategory").html("<option></option>"+html);
                     // $("#productEditCategory").html(html);
                     // Provinsi
                     html ="<option></option>";
@@ -514,42 +658,74 @@
         //     // GET DATA
             $.ajax({
                 type: "GET",
-                url: "<?= base_url('admin/ProductControllerAdmin/getData') ?>",
-                data: "",
+                url: "<?= base_url('admin/ProductControllerAdmin/getData/') ?>"+fil_number,
+                data: {
+                    fil_halaman : fil_halaman,
+                    fil_status : fil_status,
+                    fil_time : fil_time,
+                    fil_search : fil_search,
+                    fil_kategori : fil_kategori,
+                },
                 dataType: "JSON",
                 success: function (response) {
+                    let dataAwal = (parseInt(response.row)+1);
+                    let dataAkhir = parseInt(response.row)+parseInt(response.countInPage);
+                    if(response.allCount > 0){
+                        $("#table_info").html("Showing "+dataAwal+" to "+dataAkhir+" of "+response.allCount+" entries");
+                    }else{
+                        $("#table_info").html("Showing 0 to 0 of 0 entries");
+                    }
+                    $('#pagination').html(response.pagination);
                     let html = "";
+                    for (let i = 0; i < response.result.length; i++) {
+                        let tglStart = response.result[i].tgl_dibuka;
+                        let tglEnd = response.result[i].tgl_ditutup;
+                        let status = response.result[i].status;
+                        let idProdukP = ".idprd"+response.result[i].id_barang+$.now();
+                        let idProdukL = ".idprl"+response.result[i].id_barang+$.now();
 
-                    for (let i = 0; i < response.length; i++) {
-                        let tglStart = response[i].tgl_dibuka;
-                        let tglEnd = response[i].tgl_ditutup;
-                        let status = response[i].status;
+                        $.ajax({
+                            type: "POST",
+                            url: "<?= base_url(); ?>admin/ProductControllerAdmin/getJumlahPelelang",
+                            data: {
+                                id:response.result[i].id_barang
+                            },
+                            dataType: "JSON",
+                            success: function (res) {
+                                $(idProdukP).html(res.total);
+                                if(res.penawaran > 0){
+                                    $(idProdukL).html(formatRupiah(res.penawaran,"Rp. "));
+                                }else{
+                                    $(idProdukL).html("Rp. 0");
+                                }
+                            }
+                        });
 
 
                         arrTglStart.push(tglStart);
                         arrTglEnd.push(tglEnd);
                         arrStatus.push(status);
                         // Template Nama
-                        if(response[i].nama_barang.length >= 10){
-                            templateNama = response[i].nama_barang.substring(0, 10)+". . .";
+                        if(response.result[i].nama_barang.length >= 10){
+                            templateNama = response.result[i].nama_barang.substring(0, 10)+". . .";
                         }else{
-                            templateNama = response[i].nama_barang;
+                            templateNama = response.result[i].nama_barang;
                         }
                         // Template Status
-                        if(response[i].status=="draf"){
+                        if(response.result[i].status=="draf"){
                             templateTime = "";
                             templateBidder= "";
                             templatePrice = "<tr>"+
                                                 "<td>Initial Price </td>"+
-                                                "<td class='px-2'> : "+formatRupiah(response[i].harga_awal,'Rp. ')+"</td>"+
+                                                "<td class='px-2'> : "+formatRupiah(response.result[i].harga_awal,'Rp. ')+"</td>"+
                                             "</tr>";
                             templateStatus = "<td  class='pt-3 px-2'> : <span class='bg-warning py-1 px-2  text-white rounded' style='font-size:10px'>Draf</span></td>";
                         }
-                        else if(response[i].status=="coming_soon"){
-                            p = "#pCom"+response[i].id_barang+$.now();
+                        else if(response.result[i].status=="coming_soon"){
+                            p = "#pCom"+response.result[i].id_barang+$.now();
                             templatePrice = "<tr>"+
                                                 "<td>Initial Price </td>"+
-                                                "<td class='px-2'> : "+formatRupiah(response[i].harga_awal,'Rp. ')+"</td>"+
+                                                "<td class='px-2'> : "+formatRupiah(response.result[i].harga_awal,'Rp. ')+"</td>"+
                                             "</tr>";
                             templateBidder =    "";
                             templateTime = "<tr>"+
@@ -558,33 +734,33 @@
                                             "</tr>";
                             templateStatus = "<td  class='pt-3 px-2'> : <span class='bg-success py-1 px-2  text-white rounded' style='font-size:10px'>Coming soon</span></td>";
                         }
-                        else if(response[i].status=="dibuka"){
-                            p = "#pOpn"+response[i].id_barang+$.now();
+                        else if(response.result[i].status=="dibuka"){
+                            p = "#pOpn"+response.result[i].id_barang+$.now();
                             templatePrice = "<tr>"+
                                                 "<td>Initial Price </td>"+
-                                                "<td class='px-2'> : "+formatRupiah(response[i].harga_awal,'Rp. ')+"</td>"+
+                                                "<td class='px-2'> : "+formatRupiah(response.result[i].harga_awal,'Rp. ')+"</td>"+
                                             "</tr>";
                             templateBidder =    "<tr>"+
                                                     "<td>Bid </td>"+
-                                                    "<td class='px-2'> : 0 </td>"+
+                                                    "<td class='px-2'> : <span class='"+idProdukP.substring(1)+"' ></span> </td>"+
                                                 "</tr>";
                             templateTime = "<tr>"+
                                                 "<td>Closed within </td>"+
                                                 "<td class='px-2 timer' id='"+p.substring(1)+"'> :  </td>"+
                                             "</tr>";
                             templateStatus = "<td  class='pt-3 px-2'> : <span class='bg-info py-1 px-2  text-white rounded' style='font-size:10px'>Active</span></td>";
-                        }else if(response[i].status=="ditutup"){
+                        }else if(response.result[i].status=="ditutup"){
                             templatePrice = "<tr>"+
                                                 "<td>Initial Price </td>"+
-                                                "<td class='px-2'> : "+formatRupiah(response[i].harga_awal,'Rp. ')+"</td>"+
+                                                "<td class='px-2'> : "+formatRupiah(response.result[i].harga_awal,'Rp. ')+"</td>"+
                                             "</tr>"+
                                             "<tr>"+
                                                 "<td>Final Price </td>"+
-                                                "<td class='px-2'> : "+formatRupiah(response[i].harga_akhir,'Rp. ')+"</td>"+
+                                                "<td class='px-2'> : <span class='"+idProdukL.substring(1)+"'></span></td>"+
                                             "</tr>";
                             templateBidder =    "<tr>"+
                                                     "<td>Bid </td>"+
-                                                    "<td class='px-2'> : 0 </td>"+
+                                                    "<td class='px-2'> : <span class='"+idProdukP.substring(1)+"' ></span> </td>"+
                                                 "</tr>";
                             templateTime = "<tr>"+
                                                 "<td>Closed at </td>"+
@@ -593,20 +769,20 @@
                             templateStatus = "<td  class='pt-3 px-2'> : <span class='bg-danger py-1 px-2  text-white rounded' style='font-size:10px'>Closed</span></td>";
                         }
 
-                        html +=  "<div class='col-sm-12 col-lg-6 col-md-6 mt-3 d-flex align-items-stretch' id='produk"+response[i].id_barang+"'>"+
+                        html +=  "<div class='col-sm-12 col-lg-6 col-md-6 mt-3 d-flex align-items-stretch' id='produk"+response.result[i].id_barang+"'>"+
                         "<div  class='w-100 shadow' onmouseover='$( this ).children( `.shadow` ).css( `display`, `block` )' onmouseout='$( this ).children( `.shadow` ).css( `display`, `none` )'>"+
                             "<div class=' position-absolute shadow' style='top:0;right:0.9rem;left:0.9rem;bottom:0;z-index:1; background:rgba(49, 98, 141, 0.3);display:none;' >"+
                                 "<div class='px-5 h-100'>"+
                                     "<div class='h-100 d-flex justify-content-center align-items-center py-2'>"+
-                                        "<button style='width:35px;height:35px' data-placement='bottom' title='Detail' type='button' data-toggle='modal' data-target='#detailProdukAdmin' onclick='detailFunction("+response[i].id_barang+")' class='btn btn-info btn-sm mx-2 text-center  rounded-circle'> <i class='fa fa-book'></i></button>"+
-                                        "<button style='width:35px;height:35px' data-placement='bottom' title='Edit' data-toggle='modal' data-target='#editProductModal' onclick='editFunction("+response[i].id_barang+")' type='button' class='btn btn-primary btn-sm mx-2 text-center  rounded-circle'> <i class='fa fa-edit'></i></button>"+
-                                        "<button style='width:35px;height:35px' data-toggle='tooltip' data-placement='bottom' title='Delete' type='button' onclick='deleteFunction("+response[i].id_barang+")' class='btn btn-danger btn-sm mx-2 text-center  rounded-circle'> <i class='fa fa-trash'></i> </button>"+
+                                        "<button style='width:35px;height:35px' data-placement='bottom' title='Detail' type='button' data-toggle='modal' data-target='#detailProdukAdmin' onclick='detailFunction("+response.result[i].id_barang+")' class='btn btn-info btn-sm mx-2 text-center  rounded-circle'> <i class='fa fa-book'></i></button>"+
+                                        "<button style='width:35px;height:35px' data-placement='bottom' title='Edit' data-toggle='modal' data-target='#editProductModal' onclick='editFunction("+response.result[i].id_barang+")' type='button' class='btn btn-primary btn-sm mx-2 text-center  rounded-circle'> <i class='fa fa-edit'></i></button>"+
+                                        "<button style='width:35px;height:35px' data-toggle='tooltip' data-placement='bottom' title='Delete' type='button' onclick='deleteFunction("+response.result[i].id_barang+")' class='btn btn-danger btn-sm mx-2 text-center  rounded-circle'> <i class='fa fa-trash'></i> </button>"+
                                     "</div>"+
                                 "</div>"+
                             "</div>"+
                             "<div class='row'>"+
                             "<div class='col-lg-5 col-md-12 col-sm-6 py-3'>"+
-                                "<img src='<?= base_url('assets/img/produk/') ?>"+response[i].foto+"' class='w-100' alt='"+response[i].foto+"'>"+
+                                "<img src='<?= base_url('assets/img/produk/') ?>"+response.result[i].foto+"' class='w-100' alt='"+response.result[i].foto+"'>"+
                             "</div>"+
                             "<div class='col-lg-7 col-md-12 col-sm-6 d-flex align-items-center justify-content-center'>"+
                                 "<div class=''>"+
@@ -618,7 +794,7 @@
                                         templatePrice+
                                         "<tr>"+
                                             "<td>Category </td>"+
-                                            "<td class='px-2'> : "+response[i].nama_kategori+" </td>"+
+                                            "<td class='px-2'> : "+response.result[i].nama_kategori+" </td>"+
                                         "</tr>"+
                                         templateBidder+
                                         templateTime+
@@ -672,7 +848,12 @@
             }
             
         });
+        let HalamanDetail = 1;
         function detailFunction(id){
+            if(HalamanDetail == 2){
+                $("#slideDetail").carousel("prev");
+                HalamanDetail = 1;
+            }
             $("#productDetailDate").html("");
             detailClick = true;
             let tanggal = 0;
@@ -687,7 +868,24 @@
                     let Status = response.status;
                     let image = "<?= base_url('assets/img/produk/') ?>"+response.foto;
                     let html="";
-
+                    let idProdukP = ".idprd"+response.id_barang+$.now();
+                    let idProdukL = ".idprl"+response.id_barang+$.now();
+                    $.ajax({
+                        type: "POST",
+                        url: "<?= base_url(); ?>admin/ProductControllerAdmin/getJumlahPelelang",
+                        data: {
+                            id:response.id_barang
+                        },
+                        dataType: "JSON",
+                        success: function (res) {
+                            $(idProdukP).html(res.total);
+                            if(res.penawaran > 0){
+                                $(idProdukL).html(formatRupiah(res.penawaran,"Rp. "));
+                            }else{
+                                $(idProdukL).html("Rp. 0");
+                            }
+                        }
+                    });
 
                     $('#productDetailProductImage').attr("src",image);
                     $('#productDetailProductName').html("<h6>"+response.nama_barang+" <span class='text-secondary'> ( "+response.nama_kategori+" )</span></h6>");
@@ -714,7 +912,7 @@
                                 "<div id='productDetailStatus'><span class='bg-success py-1 px-2  text-white rounded' style='font-size:10px'>Coming soon</span></div>";
                         $("#detailKonten").html(html);
                         $("#productDetailDate").html("<h6 style='font-size:16px' class='ml-1' id='idProdukComing"+response.id_barang+"'></h6>");
-
+                        
                         var x = setInterval(function() {
                             var countDownDate = new Date(tanggal).getTime();
 
@@ -747,8 +945,8 @@
                         let tanggal = response.tgl_ditutup;
                         html = templateWeight+
                         "<div id='productDetailInitialPrice'></div>"+
-                        "<p style='font-size:14px' class=''>Bid : 0 </p>"+
-                        "<div id='productDetailStatus'><span class=' bg-info py-1 px-2  text-white rounded' style='font-size:10px'>Active</span> <button data-target='#slideDetail' data-slide-to='1' class=' btn btn-sm bg-primary py-1 px-2  text-white rounded' style='font-size:10px'>Check Bidder</button></div>";
+                        "<p style='font-size:14px' class=''>Bid : <span class='"+idProdukP.substring(1)+"' > </span></p>"+
+                        "<div id='productDetailStatus'><span class=' bg-info py-1 px-2  text-white rounded' style='font-size:10px'>Active</span> <button data-target='#slideDetail' data-slide-to='1' onclick='pelelang()' class='cekBid btn btn-sm bg-primary py-1 px-2  text-white rounded' style='font-size:10px' >Check Bidder</button></div>";
                         $("#detailKonten").html(html);
                         $("#productDetailDate").html("<h6 style='font-size:16px' class='ml-1' id='idProdukOpen"+response.id_barang+"'></h6>");
 
@@ -782,13 +980,14 @@
                     if(response.status=="ditutup"){
                         html = templateWeight+
                         "<div id='productDetailInitialPrice'></div>"+
-                        "<p style='font-size:14px' class=''>Bid : 0 </p>"+
-                        "<div id='productDetailStatus'><span class=' bg-danger py-1 px-2  text-white rounded' style='font-size:10px'>Closed</span> <button data-target='#slideDetail' data-slide-to='1' class=' bg-primary py-1 px-2  text-white rounded' style='border:none;font-size:10px'>Check Bidder</button></div>";
+                        "<p style='font-size:14px' class=''>Final Price : <span class='"+idProdukL.substring(1)+"'></span></p>"+
+                        "<p style='font-size:14px' class=''>Bid : <span class='"+idProdukP.substring(1)+"' > </span></p>"+
+                        "<div id='productDetailStatus'><span class=' bg-danger py-1 px-2  text-white rounded' style='font-size:10px'>Closed</span> <button data-target='#slideDetail' data-slide-to='1' onclick='pelelang()' class='cekBid bg-primary py-1 px-2  text-white rounded' style='border:none;font-size:10px'>Check Bidder</button></div>";
                         $("#detailKonten").html(html);
                         $("#productDetailDate").html("<h6 style='font-size:16px' class='ml-1'> Closed at : "+response.tgl_ditutup+" </h6>");
                     }
                     $('#productDetailInitialPrice').html("<p style='font-size:14px' class='mb-1'>Initial Price : "+formatRupiah(response.harga_awal,'Rp. ')+"</p>");                    
-
+                    $(".cekBid").attr("dataId", id);
                 }
             });
         }
@@ -1249,7 +1448,6 @@
     
         
         }
-        // cepat
         // // CLICK SAVE IN MODAL EDIT
         $('#submitEditProduct').submit(function(e){
             e.preventDefault();
@@ -1307,7 +1505,7 @@
                             'Your file has been deleted.',
                             'success'
                         );
-                        getData();
+                        getData(fil_number,fil_halaman,fil_status,fil_time,fil_search,fil_kategori);
                     }
                 });
             }
@@ -1358,6 +1556,9 @@
         let removeArray = "FALSE";
         function realTime(){
             
+            
+
+
 
             // RESPONSIVE MODAL ADD PRODUCT
             let bwidth = $("body").width();
@@ -1394,7 +1595,7 @@
             addValidation();
             editValidation();
             checkActivity();
-
+            console.log(HalamanDetail);
             // Check data di tabel aktifitas
             if(count != count2){
                 // if(removeArray == "FALSE"){
@@ -1413,7 +1614,7 @@
                 //     arrTglEnd = [];
                 //     arrP = [];
                     
-                    getData();
+                    getData(fil_number,fil_halaman,fil_status,fil_time,fil_search,fil_kategori);
                     // removeArray = "FALSE";
                 // }
             }
@@ -1447,12 +1648,17 @@
         // CALL FUNCTION
         all();
         checkActivity();
-        getData();
+        getData(fil_number,fil_halaman,fil_status,fil_time,fil_search,fil_kategori);
         
         // SETTING CAROUSEL 
         $('.carousel').carousel({
             interval: false
         }); 
+        // Detail
+        $("#cekBidBack").click(function (e) { 
+            e.preventDefault(); 
+            HalamanDetail = 1;           
+        });
         // Add
         $("#arrow-up-add").hide();
         $("#arrow-up-add").click(function (e) { 

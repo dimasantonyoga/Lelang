@@ -10,6 +10,21 @@ body{
     background-color: #F3F4FA;
 }
 
+.bg-nav-blue{
+    z-index: 999999;
+    padding-top: 0.2rem!important;
+    padding-bottom: 0.2rem!important;
+    transition-duration: 1000ms;
+    background-color: rgba(42, 42, 114, 0.98);
+}
+
+.bg-nav-transparan{
+    /* margin-top: 1.5rem!important; */
+    padding-top: 1rem!important;
+    padding-bottom: 1rem!important;
+    /* transition-duration: 1000ms; */
+    background-color: rgba(255, 255, 255, 0);
+}
 
 .img-hover-zoom {
     height: 300px; /* [1.1] Set it as per your need */
@@ -33,7 +48,8 @@ a:hover{
 @font-face {
     font-family: poppins;
     src: url('../font/Poppins-Regular.ttf');
-  }
+}
+
 .banner-one{
     background-image: url('../img/bg.png');
     width: 100%;
@@ -42,6 +58,12 @@ a:hover{
     background-repeat: no-repeat;
 }
 
+.banner-one-detail{
+    background-image: url('../img/bg.png');
+    width: 100%;
+    background-position: left top;
+    background-repeat: no-repeat;
+}
 
 
 .banner-content h1{

@@ -609,16 +609,16 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-4 col-md-12 col-sm-12 d-flex justify-content-center mb-3">
-                        <div style="width:230px;height:230px;">
-                            <img src="" id="productDetailProductImage" class="w-100"></img>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-md-12 col-sm-12 d-flex align-items-center">
-                        <div id="slideDetail" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner" role="listbox">
-                                <div class="carousel-item active">
+                <div id="slideDetail" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item active">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-12 col-sm-12 d-flex justify-content-center mb-3">
+                                    <div style="width:230px;height:230px;">
+                                        <img src="" id="productDetailProductImage" class="w-100"></img>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-12 col-sm-12 d-flex align-items-center">
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12 col-lg-12" id="productDetailProductName"></div>
                                         <div class="col-sm-12 col-md-12 col-lg-7 mt-3"  id="productDetailDescription"></div>
@@ -639,15 +639,16 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 mt-3 text-center" id="productDetailDate" >
                                         
                                         </div>
-                                    </div>  
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 mt-3 text-center">
-                                            <h4>there is no bidder yet</h4>
-                                            <button type="button" data-target='#slideDetail' data-slide-to='0' class="btn btn-primary">Back</button>
-                                        </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12 mt-3 text-center">
+                                    <table class="tablePelelang table table-striped table-bordered table-responsive-xl" style="width:100%">
+                                    </table>
+                                    <button type="button" data-target='#slideDetail' data-slide-to='0' onclick='HalamanDetail = 1;' class="btn btn-primary">Back</button>
                                 </div>
                             </div>
                         </div>
@@ -827,5 +828,200 @@
     </div>
 </div>
 <!-- ===== END MODAL EDIT PRODUK ===== -->
+
+<!-- ===== START MODAL ADD PAYMENT METHOD ===== -->
+<div class="modal fade" id="addPayment" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">ADD PAYMENT METHOD</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12 col-md-9 col-lg-10">
+                        <!-- ===== FORM Bank Name ===== -->
+                        <div class="form-group">
+                            <label for="">Bank Name</label>
+                            <input type="text"
+                            class="form-control" maxlength="100" id="addBankName" aria-describedby="helpId" placeholder="">
+                            <small id="helpId" class="form-text text-muted">Required, max 100 char</small>
+                        </div>
+                        <!-- ===== END FORM Bank Name ===== -->
+                    </div>
+                    <div class="col-sm-12 col-md-9 col-lg-10">
+                        <!-- ===== FORM Bank Name ===== -->
+                        <div class="form-group">
+                            <label for="">Recipient Name</label>
+                            <input type="text"
+                            class="form-control" maxlength="50" id="addPenerimaName" aria-describedby="helpId" placeholder="">
+                            <small id="helpId" class="form-text text-muted">Required, max 50 char</small>
+                        </div>
+                        <!-- ===== END FORM Bank Name ===== -->
+                    </div>
+                    <div class="col-sm-12 col-md-9 col-lg-10">
+                        <!-- ===== FORM Bank Name ===== -->
+                        <div class="form-group">
+                            <label for="">Account Number</label>
+                            <input type="text"
+                            class="form-control" maxlength="25" id="addAccountNumber" aria-describedby="helpId" placeholder="">
+                            <small id="helpId" class="form-text text-muted">Required, max 25 char</small>
+                        </div>
+                        <!-- ===== END FORM Bank Name ===== -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button id="addPaymentSubmit" type="button" class="btn btn-success" data-dismiss="modal">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ===== End MODAL ADD PAYMENT METHOD ===== -->
+
+<!-- ===== START MODAL ADD PAYMENT METHOD ===== -->
+<div class="modal fade" id="editPayment" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">ADD PAYMENT METHOD</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12 col-md-9 col-lg-10">
+                        <!-- ===== FORM Bank Name ===== -->
+                        <div class="form-group">
+                            <label for="">Bank Name</label>
+                            <input type="text"
+                            class="form-control" maxlength="100" id="editBankName" aria-describedby="helpId" placeholder="">
+                            <small id="helpId" class="form-text text-muted">Required, max 100 char</small>
+                        </div>
+                        <!-- ===== END FORM Bank Name ===== -->
+                    </div>
+                    <div class="col-sm-12 col-md-9 col-lg-10">
+                        <!-- ===== FORM Bank Name ===== -->
+                        <div class="form-group">
+                            <label for="">Recipient Name</label>
+                            <input type="text"
+                            class="form-control" maxlength="50" id="editPenerimaName" aria-describedby="helpId" placeholder="">
+                            <small id="helpId" class="form-text text-muted">Required, max 50 char</small>
+                        </div>
+                        <!-- ===== END FORM Bank Name ===== -->
+                    </div>
+                    <div class="col-sm-12 col-md-9 col-lg-10">
+                        <!-- ===== FORM Bank Name ===== -->
+                        <div class="form-group">
+                            <label for="">Account Number</label>
+                            <input type="text"
+                            class="form-control" maxlength="25" id="editAccountNumber" aria-describedby="helpId" placeholder="">
+                            <small id="helpId" class="form-text text-muted">Required, max 25 char</small>
+                        </div>
+                        <!-- ===== END FORM Bank Name ===== -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button id="editPaymentSubmit" type="button" class="btn btn-success" data-dismiss="modal">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ===== End MODAL ADD PAYMENT METHOD ===== -->
+
+<!-- ===== START MODAL DELETE PAYMENT METHOD ===== -->
+<div class="modal fade " id="deletePayment" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> <i class="fa fa-warning"></i>Delete this item ?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-bordered table-responsive-xs">
+                    <tr>
+                        <td class="th-sm">No
+                        </td>
+                        <td class="th-sm">Bank Name
+                        </td>
+                        <td class="th-sm">Recipient Name
+                        </td>
+                        <td class="th-sm">Account Number
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="paymentNo" class="th-sm">
+                        </td>
+                        <td id="paymentBank" class="th-sm">
+                        </td>
+                        <td id="paymentName" class="th-sm">
+                        </td>
+                        <td id="paymentNumber" class="th-sm">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger px-3 col-2" data-dismiss="modal">No</button>
+                <button id="deletePaymentButton" type="button" class="btn btn-success px-3 col-2" data-dismiss="modal">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ===== END MODAL DELETE PAYMENT METHOD ===== -->
+
+
+<!-- ===== START MODAL CEK KONFIRMASI USER ===== -->
+<div class="modal fade" id="cekKonfirmasi" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Data Konfirmasi pembayaran User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <div class="container px-5 py-3">
+                    <div class="form-group">
+                    <label for="">Nama Pemilik Rekening (transfer) : </label>
+                    <input type="text"
+                        class="form-control bg-white" readonly name="" id="cekNama" aria-describedby="helpId" placeholder="">
+                    </div>
+                    <div class="form-group">
+                    <label for="">Tujuan Transfer Bank : </label>
+                    <input type="text"
+                        class="form-control bg-white" readonly name="" id="cekTujuan" aria-describedby="helpId" placeholder="">
+                    </div>
+                    <div class="form-group">
+                    <label for="">Jumlah Transfer : </label>
+                    <input type="text"
+                        class="form-control bg-white" readonly name="" id="cekJumlah" aria-describedby="helpId" placeholder="">
+                    </div>
+                    <div class="form-group">
+                    <label for="">Tanggal Transfer : </label>
+                    <input type="text"
+                        class="form-control bg-white" readonly name="" id="cekTanggal" aria-describedby="helpId" placeholder="">
+                    </div>
+                    <div class="form-group">
+                    <label for="">No Invoice : </label>
+                    <input type="text"
+                        class="form-control bg-white" readonly name="" id="cekNo" aria-describedby="helpId" placeholder="">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ===== END MODAL CEK KONFIRMASI USER ===== -->
 
 

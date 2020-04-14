@@ -27,18 +27,18 @@ class AuthControllerUser extends CI_Controller {
         if($cek > 0){
             $hasil = $this->myModel->selectWhere('tb_masyarakat',$where)->row();
             $sessionData = array(
-                'id'  => $hasil->id_user,
-                'name'  => $hasil->nama_lengkap,
-                'username'  => $hasil->username,
-                'telp'  => $hasil->telp,
-                'login' => TRUE
+                'id_user'  => $hasil->id_user,
+                'name_user'  => $hasil->nama_lengkap,
+                'username_user'  => $hasil->username,
+                'telp_user'  => $hasil->telp,
+                'login_user' => "true"
             );
             $this->session->set_userdata($sessionData);
             $data = array('success' => true, 'msg' => '');
         }
         echo json_encode($data);
     }
-
+ 
     // INSERT DATA IN TABLE MASYARAKAT
     public function register(){
         $data = array(
@@ -48,6 +48,13 @@ class AuthControllerUser extends CI_Controller {
             'telp'   => $this->input->post('registerTelephone')
         );
         $insert = $this->myModel->insert('tb_masyarakat',$data);
+        // INSERT TABLE AktifitAS
+        $keterangan = array(
+            'id_petugas' => 0,
+            'nama_aktifitas'  => 'CREATE',
+            'nama_tabel'  => 'tb_masyarakat',
+        );
+        $this->myModel->insert('tb_aktifitas',$keterangan);
 
         $data = array('success' => false, 'msg' => '');
         if($insert){
@@ -67,6 +74,13 @@ class AuthControllerUser extends CI_Controller {
             $data = array('success' => true, 'msg' => '');
         }
         echo json_encode($data);
+    }
+
+    // Logout
+    public function logout(){
+        $this->session->sess_destroy();
+        $data = "ok";
+        echo $data;
     }
 
 }

@@ -55,6 +55,25 @@ $route['default_controller'] = 'HomeControllerUser';
 
     // User Auth
     $route['auth/login'] = 'user/AuthControllerUser';
+    // User Produk
+    $route['produk'] = 'user/ProdukControllerUser';
+    // user Detail Lelang
+    $route['produk/detail'] = 'user/DetailControllerUser';
+    $route['produk/detail/(:any)/(:any)'] = 'user/DetailControllerUser/Detail/$1/$2';
+    // user pemenang lelang
+    $route['pemenang-lelang'] = 'user/PemenangControllerUser';
+    $route['pembayaran'] = 'user/PembayaranControllerUser';
+    // dashboard user
+    $route['dashboard'] = 'user/HomeDashboardControllerUser';
+    $route['account-setting'] = 'user/AccountDashboardControllerUser';
+    $route['dashboard/diikuti'] = 'user/LelangDashboardControllerUser/diikuti';
+    $route['dashboard/dimenangkan'] = 'user/LelangDashboardControllerUser/dimenangkan';
+    $route['dashboard/dimiliki'] = 'user/LelangDashboardControllerUser/dimiliki';
+
+    $route['dashboard/transaksi'] = 'user/TransaksiDashboardControllerUser';
+    $route['dashboard/dimenangkan/bayar/(:any)/(:any)'] = 'user/BayarDashboardControllerUser/detail/$1/$2';
+
+
 
 // Admin
 $route['admin/login'] = 'admin/AuthControllerAdmin';
@@ -64,6 +83,12 @@ $route['admin/officer'] = 'admin/OfficerControllerAdmin';
 $route['admin/category'] = 'admin/CategoryControllerAdmin';
 $route['admin/product'] = 'admin/ProductControllerAdmin';
 $route['admin/account-setting'] = 'admin/AccountSettingControllerAdmin';
+$route['admin/payment-method'] = 'admin/PaymentMethodControllerAdmin';
+$route['admin/payment'] = 'admin/ConfirmationControllerAdmin';
+$route['admin/recapitulation'] = 'admin/RecapitulationControllerAdmin';
+$route['admin/payment/detail/(:any)/(:any)/(:any)'] = 'admin/DetailPaymentControllerAdmin/detail/$1/$2/$3';
+
+
 
 
 
